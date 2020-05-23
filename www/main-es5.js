@@ -4541,9 +4541,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         measurementId: "G-YBB9T0H8SP"
       },
       onesignal: {
-        appId: '',
-        googleProjectNumber: '',
-        restKey: ''
+        appId: '687e3985-8c32-47a0-a0f3-218bcf211c6a',
+        googleProjectNumber: '939588313073',
+        restKey: 'NTI5N2E5MDctNGYxMS00OTIwLTkwZDItNDMyZmNkNjg5MmYw'
       },
       stripe: {
         sk: ''

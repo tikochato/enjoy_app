@@ -177,5 +177,6 @@
     "To Cancel this order": "To Cancel this order",
     "Order cancelled": "Order cancelled",
     "Order ": "Order ",
-    " cancelled by user": " cancelled by user"
+    " cancelled by user": " cancelled by user",
+    "currencyCode": "Q"
 }
