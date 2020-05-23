@@ -59,7 +59,7 @@
           <ion-label class="head_gray">{{'ORDERED ON' | translate}}</ion-label>
           <ion-label class="small_lbl">{{getDate(item.time)}} </ion-label>
           <ion-label class="head_gray">{{'TOTAL AMOUNT' | translate}}</ion-label>
-          <ion-label class="small_lbl">${{item.grandTotal}}</ion-label>
+          <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.grandTotal}}</ion-label>
         </div>
 
         <div class="line_div"></div>

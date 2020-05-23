@@ -44,21 +44,21 @@
           <ion-label style="margin-left: 10px;">{{item.name}}</ion-label>
         </div>
         <div class="lower_div">
-          <div><span class="rate_lbl">{{item.quantiy}}</span> X ${{item.price}}</div>
-          <ion-label>${{item.quantiy * item.price}}</ion-label>
+          <div><span class="rate_lbl">{{item.quantiy}}</span> X {{'currencyCode' | translate}} {{item.price}}</div>
+          <ion-label>{{'currencyCode' | translate}} {{item.quantiy * item.price}}</ion-label>
         </div>
       </div>
       <div class="line_div"></div>
     </span>
 
     <ion-label style="margin-top: 5px; font-weight: 600px;">{{'Item Total' | translate}} <span
-        class="prise_lbl">${{total}}</span>
+        class="prise_lbl">{{'currencyCode' | translate}} {{total}}</span>
     </ion-label>
     <ion-label style="margin-top: 5px; font-weight: 600px;" *ngIf="coupon">{{'Coupon Discout' | translate}} <span
-        class="prise_lbl">${{dicount}}</span>
+        class="prise_lbl">{{'currencyCode' | translate}} {{dicount}}</span>
     </ion-label>
     <ion-label style="margin-top: 5px; font-size: 14px">{{'Delivery Charge' | translate}} <span
-        class="prise_lbl">${{serviceTax}}</span>
+        class="prise_lbl">{{'currencyCode' | translate}} {{serviceTax}}</span>
     </ion-label>
     <div class="line_div"></div>
 
@@ -68,7 +68,7 @@
     <ion-label class="head_gray">{{'Order Number' | translate}}</ion-label>
     <ion-label class="small_lbl">{{id}}</ion-label>
     <ion-label class="head_gray">{{'Payment' | translate}}</ion-label>
-    <ion-label class="small_lbl">{{'Paid' | translate}} ; <span *ngIf="paid =='cod'">COD</span> <span
+    <ion-label class="small_lbl"><span *ngIf="paid =='cod'">{{'Cash on Delivery' | translate}}</span> <span
         *ngIf="paid =='stripe'">{{'Using Card' | translate}}</span> </ion-label>
     <ion-label class="head_gray">{{'Date' | translate}}</ion-label>
     <ion-label class="small_lbl">{{time}}</ion-label>

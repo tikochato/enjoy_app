@@ -209,7 +209,7 @@ export class PaymentsPage implements OnInit {
     return earthRadiusKm * c;
   }
   async createOrder() {
-    this.util.show('creating order');
+    this.util.show(this.util.translate('Creating order'));
     this.api.checkAuth().then(async (data: any) => {
       console.log(data);
       if (data) {

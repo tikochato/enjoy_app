@@ -40,7 +40,7 @@ ionic cordova run android -l [--verbose]
 ```
 
 ### Pending Task
-- [ ] Remove Veg.
+- [x] Remove Veg.
 - [x] Currency Translate ($/Q)
 - [ ] Language buttons
   - [ ] Set language with ubication 
@@ -52,3 +52,20 @@ ionic cordova run android -l [--verbose]
   - [ ] Add button to get actual location
   - [ ] Add search of address by text
 - [x] Remove Plus taxes, only show total
+- [ ] Total Price
+  - [ ] Add % fee
+  - [ ] Sum price + fee
+- [ ] Delivery time in mins. 
+- [ ] Orders Status / Orders Status Detaills
+  - [ ] completed
+  - [ ] delivered
+  - [ ] rejected
+  - [ ] cancel
+  - [ ] created
+  - [ ] ongoing
+  - [ ] accepted
+- [ ] Payments Types
+  - [x] Cash on Delivery
+  - [ ] Credit/Debit Cards
+  - [ ] Stripe ?
+  - [ ] Paypal ?
