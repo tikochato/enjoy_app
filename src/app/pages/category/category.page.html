@@ -79,7 +79,7 @@
                   ({{item.totalRatting ? item.totalRatting:0}}. {{'Rattings' | translate}})
                 </div>
                 <ion-label class="small_lbl">{{item.desc}}</ion-label>
-                <ion-label class="small_lbl">$ {{item.price}}</ion-label>
+                <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.price}}</ion-label>
               </div>
               <div class="cartBtn" *ngIf="item.quantiy <= 0">
                 <ion-label class="btns" (click)="add(i)">{{'Add' | translate}}</ion-label>
@@ -114,8 +114,9 @@
 </ion-content>
 <ion-footer *ngIf="totalItem >0">
   <ion-toolbar color="primary">
-    <ion-label color="light">{{totalItem}} {{'ITEM' | translate}}</ion-label>
-    <ion-label color="light">${{totalPrice}} {{'plus taxes' | translate}}</ion-label>
+    <ion-label color="light" *ngIf="totalItem ===1">{{totalItem}} {{'ITEM' | translate}}</ion-label>
+    <ion-label color="light" *ngIf="totalItem >1">{{totalItem}} {{'ITEMS' | translate}}</ion-label>
+    <ion-label color="light">{{'currencyCode' | translate}} {{totalPrice}}</ion-label>
     <ion-button (click)="viewCart()" slot="end" fill="clear" color="light">
       <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
       {{'View Cart' | translate}}

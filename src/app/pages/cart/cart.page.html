@@ -49,7 +49,7 @@
                 ({{totalRatting}} {{'Rattings' | translate}})
               </div>
               <ion-label class="small_lbl">{{item.desc}}</ion-label>
-              <ion-label class="small_lbl">$ {{item.price}}</ion-label>
+              <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.price}}</ion-label>
             </div>
             <div class="cartBtn2">
               <ion-button (click)="removeQ(i)" fill="clear" size="small">
@@ -72,23 +72,19 @@
       <div class="billing">
         <div class="singleRow">
           <ion-label class="headerTitle">{{'Item Total'}}</ion-label>
-          <ion-label class="price">$ {{totalPrice}}</ion-label>
-        </div>
-        <div class="singleRow">
-          <ion-label class="headerTitle">{{'Taxes & Charges' | translate}}</ion-label>
-          <ion-label class="price">$ {{serviceTax}}</ion-label>
+          <ion-label class="price">{{'currencyCode' | translate}} {{totalPrice}}</ion-label>
         </div>
         <div class="singleRow">
           <ion-label class="headerTitle">{{'Delivery Charges' | translate}}</ion-label>
-          <ion-label class="price">$ {{deliveryCharge}}</ion-label>
+          <ion-label class="price">{{'currencyCode' | translate}} {{deliveryCharge}}</ion-label>
         </div>
         <div class="singleRow" *ngIf="coupon">
           <ion-label class="headerTitle">{{'Dicount' | translate}}</ion-label>
-          <ion-label class="price">$ {{dicount}}</ion-label>
+          <ion-label class="price">{{'currencyCode' | translate}} {{dicount}}</ion-label>
         </div>
         <div class="singleRow">
           <ion-label class="headerTotal boldClass">{{'Grand Total' | translate}}</ion-label>
-          <ion-label class="priceTotal boldClass">$ {{grandTotal}}</ion-label>
+          <ion-label class="priceTotal boldClass">{{'currencyCode' | translate}} {{grandTotal}}</ion-label>
         </div>
       </div>
       <p class="instructions">
@@ -99,8 +95,9 @@
 </ion-content>
 <ion-footer *ngIf="haveItems">
   <ion-toolbar color="primary">
-    <ion-label color="light">{{totalItem}} {{'ITEM' | translate}}</ion-label>
-    <ion-label color="light">${{grandTotal}} {{'plus taxes' | translate}}</ion-label>
+    <ion-label color="light" *ngIf="totalItem ===1">{{totalItem}} {{'ITEM' | translate}}</ion-label>
+    <ion-label color="light" *ngIf="totalItem >1">{{totalItem}} {{'ITEMS' | translate}}</ion-label>
+    <ion-label color="light">{{'currencyCode' | translate}} {{grandTotal}}</ion-label>
     <ion-button (click)="checkout()" slot="end" fill="clear" color="light">
       {{'Checkout' | translate}}
     </ion-button>
