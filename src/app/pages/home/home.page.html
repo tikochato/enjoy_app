@@ -15,11 +15,6 @@
   <div class="chips_div animated fadeInDown" *ngIf="allRest?.length">
     <ion-label class="chip" *ngFor="let item of chips;let i = index" (click)="addFilter(i)">{{item}}</ion-label>
   </div>
-  <ion-item>
-    <ion-label> <span *ngIf="!nearme">{{'Near Me' | translate}}</span> <span
-        *ngIf="nearme">{{'All Rest' | translate}}</span> </ion-label>
-    <ion-toggle slot="end" (ionChange)="nearMe()" [(ngModel)]="nearme"></ion-toggle>
-  </ion-item>
 </ion-header>
 
 <ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
@@ -31,8 +26,14 @@
       </ion-slide>
     </ion-slides>
     <div class="noData" *ngIf="!dummy?.length && !allRest?.length" [style.backgroundImage]="'url(assets/nothing.jpg)'">
-
     </div>
+
+    <ion-item>
+      <ion-label> <span *ngIf="!nearme">{{'Near Me' | translate}}</span> <span
+          *ngIf="nearme">{{'All Rest' | translate}}</span> </ion-label>
+      <ion-toggle slot="end" (ionChange)="nearMe()" [(ngModel)]="nearme"></ion-toggle>
+    </ion-item>
+
     <p style="font-weight: bold;text-align: center;" *ngIf="!dummy?.length && !allRest?.length">
       {{'No Restaurants Found!' | translate}}
     </p>
@@ -66,8 +67,7 @@
           <div class="desc_div" (click)="openMenu(item)">
             <ion-label class="heading_lbl">{{item.name}}</ion-label>
             <ion-label class="small_lbl">{{getCusine(item.cusine)}}</ion-label>
-            <ion-label class="small_lbl">{{item.dishPrice}}$ {{'per person' | translate}} | {{item.time}}
-              {{'min' | translate}}</ion-label>
+            <ion-label class="small_lbl">{{'Delivery Time' | translate }}{{item.time}} {{'min' | translate}}</ion-label>
 
           </div>
         </ion-col>

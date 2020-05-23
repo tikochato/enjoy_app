@@ -27,7 +27,6 @@ export class CategoryPage implements OnInit {
   dummyFoods: any[] = [];
   categories: any[] = [];
   dummy = Array(50);
-  veg: boolean = true;
   totalItem: any = 0;
   totalPrice: any = 0;
   deliveryAddress: any = '';
@@ -71,7 +70,7 @@ export class CategoryPage implements OnInit {
         this.cover = data.cover;
         this.address = data.address;
         this.ratting = data.ratting ? data.ratting : 0;
-        this.totalRatting = data.totalRatting ? data.totalRatting : 2;
+        this.totalRatting = data.totalRatting ? data.totalRatting : 0;
         this.dishPrice = data.dishPrice;
         this.time = data.time;
         this.cusine = data.cusine;
@@ -81,7 +80,6 @@ export class CategoryPage implements OnInit {
         if (vid && vid !== this.id) {
           this.getCates();
           this.getFoods();
-          this.changeStatus();
           this.totalItem = parseInt(localStorage.getItem('totalItem'));
           this.totalPrice = parseFloat(localStorage.getItem('totalPrice'));
           this.presentAlertConfirm();
@@ -91,11 +89,9 @@ export class CategoryPage implements OnInit {
           this.foods = JSON.parse(localStorage.getItem('foods'));
           this.dummyFoods = JSON.parse(localStorage.getItem('dummyItem'));
           this.calculate();
-          this.changeStatus();
         } else {
           this.getCates();
           this.getFoods();
-          this.changeStatus();
         }
 
       }
@@ -147,7 +143,6 @@ export class CategoryPage implements OnInit {
               price: element.price,
               ratting: element.ratting,
               uid: element.uid,
-              veg: element.veg,
               quantiy: 0,
               totalRatting: element.totalRatting ? element.totalRatting : 0
             };
@@ -165,7 +160,6 @@ export class CategoryPage implements OnInit {
                 price: element.small,
                 ratting: element.ratting,
                 uid: element.uid,
-                veg: element.veg,
                 quantiy: 0,
                 totalRatting: element.totalRatting ? element.totalRatting : 0
               };
@@ -185,7 +179,6 @@ export class CategoryPage implements OnInit {
                 price: element.medium,
                 ratting: element.ratting,
                 uid: element.uid,
-                veg: element.veg,
                 quantiy: 0,
                 totalRatting: element.totalRatting ? element.totalRatting : 0
               };
@@ -205,7 +198,6 @@ export class CategoryPage implements OnInit {
                 price: element.large,
                 ratting: element.ratting,
                 uid: element.uid,
-                veg: element.veg,
                 quantiy: 0,
                 totalRatting: element.totalRatting ? element.totalRatting : 0
               };
@@ -260,10 +252,6 @@ export class CategoryPage implements OnInit {
 
   }
 
-  statusChange() {
-    console.log('status', this.veg);
-    this.changeStatus();
-  }
   calculate() {
     this.dummy = [];
     console.log('khaliiii', this.dummy);
@@ -311,9 +299,7 @@ export class CategoryPage implements OnInit {
   async  ionViewWillLeave() {
     await this.setData();
   }
-  changeStatus() {
-    this.foods = this.dummyFoods.filter(x => x.veg === this.veg);
-  }
+  
   addQ(index) {
     this.foods[index].quantiy = this.foods[index].quantiy + 1;
     this.calculate();

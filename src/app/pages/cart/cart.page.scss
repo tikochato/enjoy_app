@@ -76,12 +76,19 @@ ion-toolbar {
                 .desc_div{
                     margin-left: 20px;
                     .heading_lbl{
+                        // font-size: 1rem;
                         font-size: 14px;
                         display: block;
                         text-align: left;
                     }
                     .ratting{
+                        // font-size: 0.8rem;
                         font-size: 10px;
+                    }
+                    .medium_lbl{
+                        font-size: 10px;
+                        display: block;
+                        text-align: left;
                     }
                     .small_lbl{
                         font-size: 8px;
@@ -89,7 +96,13 @@ ion-toolbar {
                         display: block;
                         text-align: left;
                     }
-                    
+                    .price_lbl{
+                        font-size: 14px;
+                        display: block;
+                        text-align: left;
+                        font-weight: bold;
+                        margin-top: 20px;
+                    }                    
                 }
                 .cartBtn{
                     position: absolute;

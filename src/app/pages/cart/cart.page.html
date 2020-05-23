@@ -30,26 +30,8 @@
             <!-- <div class="image_div" [style.backgroundImage]="'url('+item.cover+')'"></div> -->
             <div class="desc_div">
               <ion-label class="heading_lbl">{{item.name}}</ion-label>
-              <div class="ratting">
-                <ion-icon [name]="item.ratting >= 1 ? 'star-outline':'star'"
-                  [color]="item.ratting >= 1 ? 'warning':'medium'">
-                </ion-icon>
-                <ion-icon [name]="item.ratting >= 2 ? 'star-outline':'star'"
-                  [color]="item.ratting >= 2 ? 'warning':'medium'">
-                </ion-icon>
-                <ion-icon [name]="item.ratting >= 3 ? 'star-outline':'star'"
-                  [color]="item.ratting >= 3 ? 'warning':'medium'">
-                </ion-icon>
-                <ion-icon [name]="item.ratting >= 4 ? 'star-outline':'star'"
-                  [color]="item.ratting >= 4 ? 'warning':'medium'">
-                </ion-icon>
-                <ion-icon [name]="item.ratting >= 5 ? 'star-outline':'star'"
-                  [color]="item.ratting >= 5 ? 'warning':'medium'">
-                </ion-icon>
-                ({{totalRatting}} {{'Rattings' | translate}})
-              </div>
-              <ion-label class="small_lbl">{{item.desc}}</ion-label>
-              <ion-label class="small_lbl">{{'currencyCode' | translate}} {{item.price}}</ion-label>
+              <ion-label class="medium_lbl">{{item.desc}}</ion-label>
+              <ion-label class="price_lbl">{{'currencyCode' | translate}} {{item.price}}</ion-label>
             </div>
             <div class="cartBtn2">
               <ion-button (click)="removeQ(i)" fill="clear" size="small">
