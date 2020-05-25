@@ -37,6 +37,8 @@ ionic cordova platform add android
 
 ionic cordova prepare android
 ionic cordova run android -l [--verbose]
+
+adb logcat
 ```
 
 ### Pending Task
@@ -49,7 +51,7 @@ ionic cordova run android -l [--verbose]
 - [ ] Select City: Set city by user location
 - [ ] Restaurants by city: Show only near restaurants
 - [ ] Address Maps 
-  - [ ] Add button to get actual location
+  - [x] Add button to get actual location
   - [ ] Add search of address by text
 - [x] Remove Plus taxes, only show total
 - [ ] Total Price

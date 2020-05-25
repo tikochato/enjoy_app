@@ -26,6 +26,7 @@ export class AddNewAddressPage implements OnInit {
   title: any = 'home';
   id: any;
   from: any;
+
   constructor(
     private platform: Platform,
     private androidPermissions: AndroidPermissions,
@@ -70,7 +71,7 @@ export class AddNewAddressPage implements OnInit {
       } else if (this.platform.is('ios')) {
         this.grantRequest();
       } else {
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
             console.log('resp', resp);
             this.lat = resp.coords.latitude;
@@ -86,7 +87,7 @@ export class AddNewAddressPage implements OnInit {
   grantRequest() {
     this.diagnostic.isLocationEnabled().then((data) => {
       if (data) {
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
             console.log('resp', resp);
             this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
@@ -95,7 +96,7 @@ export class AddNewAddressPage implements OnInit {
         });
       } else {
         this.diagnostic.switchToLocationSettings();
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
             console.log('ress,', resp);
             this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
@@ -125,10 +126,10 @@ export class AddNewAddressPage implements OnInit {
 
     const mapOptions = {
       zoom: 15,
-      scaleControl: false,
+      scaleControl: true,
       streetViewControl: false,
-      zoomControl: false,
-      overviewMapControl: false,
+      zoomControl: true,
+      overviewMapControl: true,
       center: location,
       mapTypeControl: false,
       mapTypeControlOptions: {
@@ -140,6 +141,8 @@ export class AddNewAddressPage implements OnInit {
     this.map.mapTypes.set('Foodfire5', mapType);
     this.map.setMapTypeId('Foodfire5');
     this.addMarker(location);
+
+    this.addLocationButton(this.map, this.marker);
   }
 
   getAddress(lat, lng) {
@@ -269,5 +272,55 @@ export class AddNewAddressPage implements OnInit {
       console.log('error', error);
       this.util.errorToast(this.util.translate('Something went wrong'));
     });
+  }
+
+  addLocationButton(map, marker) {
+    var controlDiv = document.createElement('div');
+
+    var firstChild = document.createElement('button');
+    firstChild.style.backgroundColor = '#fff';
+    firstChild.style.border = 'none';
+    firstChild.style.outline = 'none';
+    firstChild.style.width = '28px';
+    firstChild.style.height = '28px';
+    firstChild.style.borderRadius = '2px';
+    firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+    firstChild.style.cursor = 'pointer';
+    firstChild.style.marginRight = '10px';
+    firstChild.style.padding = '0px';
+    firstChild.title = 'Your Location';
+    controlDiv.appendChild(firstChild);
+
+    var secondChild = document.createElement('div');
+    secondChild.style.margin = '5px';
+    secondChild.style.width = '18px';
+    secondChild.style.height = '18px';
+    secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+    secondChild.style.backgroundSize = '180px 18px';
+    secondChild.style.backgroundPosition = '0px 0px';
+    secondChild.style.backgroundRepeat = 'no-repeat';
+    secondChild.id = 'you_location_img';
+    firstChild.appendChild(secondChild);
+
+    firstChild.addEventListener('click', function () {
+      var imgX = '0';
+      var animationInterval = setInterval(function () {
+        if (imgX == '-18') imgX = '0';
+        else imgX = '-18';
+      }, 500);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          marker.setPosition(latlng);
+          map.setCenter(latlng);
+          clearInterval(animationInterval);
+        });
+      }
+      else {
+        clearInterval(animationInterval);
+      }
+    });
+
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
   }
 }
