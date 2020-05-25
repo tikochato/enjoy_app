@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button mode=\"md\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>{{'Add new address' | translate}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"div_map\" #map></div>\n  <div class=\"informations\">\n    <ion-item>\n      <ion-label position=\"stacked\">{{'LOCATIONS' | translate}}</ion-label>\n      <ion-input [(ngModel)]=\"address\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">{{'HOUSE / FLAT NO' | translate}}</ion-label>\n      <ion-input [(ngModel)]=\"house\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"stacked\">{{'LANDMARK' | translate}}</ion-label>\n      <ion-input [(ngModel)]=\"landmark\"></ion-input>\n    </ion-item>\n    <ion-radio-group [(ngModel)]=\"title\">\n      <ion-label class=\"title\">\n        {{'SAVE AS' | translate}}\n      </ion-label>\n      <ion-item style=\"margin-top: 20px;\">\n        <ion-icon name=\"home-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'HOME' | translate}}</ion-label>\n        <ion-radio value=\"home\"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon name=\"briefcase-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'WORK' | translate}}</ion-label>\n        <ion-radio value=\"work\"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon name=\"navigate-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'OTHER' | translate}}</ion-label>\n        <ion-radio value=\"other\"></ion-radio>\n      </ion-item>\n    </ion-radio-group>\n    <ion-button *ngIf=\"from ==='new'\" (click)=\"addAddress()\" expand=\"block\">\n      {{'Add' | translate}}\n    </ion-button>\n\n    <ion-button *ngIf=\"from ==='edit'\" (click)=\"updateAddress()\" expand=\"block\">\n      {{'Update' | translate}}\n    </ion-button>\n  </div>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button mode=\"md\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>{{'Add new address' | translate}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"div_map\" #map></div>\n  <div class=\"informations\">\n    <ion-item>\n      <ion-label position=\"stacked\">{{'LOCATIONS' | translate}}</ion-label>\n      <ion-input [(ngModel)]=\"address\"></ion-input>\n    </ion-item>\n  </div>\n\n\n  <ion-item>\n    <ion-label position=\"stacked\">{{'HOUSE / FLAT NO' | translate}}</ion-label>\n    <ion-input [(ngModel)]=\"house\"></ion-input>\n  </ion-item>\n  <ion-item>\n    <ion-label position=\"stacked\">{{'LANDMARK' | translate}}</ion-label>\n    <ion-input [(ngModel)]=\"landmark\"></ion-input>\n  </ion-item>\n  <div style=\"margin-top: 20px;\">\n    <ion-radio-group [(ngModel)]=\"title\">\n      <ion-label class=\"title\">\n        {{'SAVE AS' | translate}}\n      </ion-label>\n      <ion-item style=\"margin-top: 10px;\">\n        <ion-icon name=\"home-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'HOME' | translate}}</ion-label>\n        <ion-radio value=\"home\"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon name=\"briefcase-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'WORK' | translate}}</ion-label>\n        <ion-radio value=\"work\"></ion-radio>\n      </ion-item>\n\n      <ion-item>\n        <ion-icon name=\"navigate-outline\" slot=\"start\"></ion-icon>\n        <ion-label>{{'OTHER' | translate}}</ion-label>\n        <ion-radio value=\"other\"></ion-radio>\n      </ion-item>\n    </ion-radio-group>\n  </div>\n  <ion-button *ngIf=\"from ==='new'\" (click)=\"addAddress()\" expand=\"block\">\n    {{'Add' | translate}}\n  </ion-button>\n\n  <ion-button *ngIf=\"from ==='edit'\" (click)=\"updateAddress()\" expand=\"block\">\n    {{'Update' | translate}}\n  </ion-button>\n  </div>\n</ion-content>");
 
 /***/ }),
 
@@ -104,7 +104,7 @@ AddNewAddressPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".div_map {\n  height: 50vh;\n  width: 100%;\n  border: 1px solid gray;\n}\n\n.informations {\n  padding: 10px;\n}\n\n.informations .title {\n  font-weight: bold;\n  padding: 10px;\n  margin: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYXZvY2hvYS9kZXYvdGlrby9lbmpveS9lbmpveV9hcHAvc3JjL2FwcC9wYWdlcy9hZGQtbmV3LWFkZHJlc3MvYWRkLW5ldy1hZGRyZXNzLnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZXMvYWRkLW5ldy1hZGRyZXNzL2FkZC1uZXctYWRkcmVzcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLHNCQUFBO0FDQ0o7O0FEQ0E7RUFDSSxhQUFBO0FDRUo7O0FEREk7RUFDSSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxZQUFBO0FDR1IiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9hZGQtbmV3LWFkZHJlc3MvYWRkLW5ldy1hZGRyZXNzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kaXZfbWFwe1xuICAgIGhlaWdodDogNTB2aDtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBib3JkZXI6IDFweCBzb2xpZCBncmF5O1xufVxuLmluZm9ybWF0aW9uc3tcbiAgICBwYWRkaW5nOiAxMHB4O1xuICAgIC50aXRsZXtcbiAgICAgICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gICAgICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgICAgIG1hcmdpbjogMTBweDtcbiAgICB9XG59XG4iLCIuZGl2X21hcCB7XG4gIGhlaWdodDogNTB2aDtcbiAgd2lkdGg6IDEwMCU7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGdyYXk7XG59XG5cbi5pbmZvcm1hdGlvbnMge1xuICBwYWRkaW5nOiAxMHB4O1xufVxuLmluZm9ybWF0aW9ucyAudGl0bGUge1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgcGFkZGluZzogMTBweDtcbiAgbWFyZ2luOiAxMHB4O1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".div_map {\n  height: 50vh;\n  width: 100%;\n  border: 1px solid gray;\n}\n\n.informations {\n  padding: 10px;\n}\n\n.informations .title {\n  font-weight: bold;\n  padding: 10px;\n  margin-top: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYXZvY2hvYS9kZXYvdGlrby9lbmpveS9lbmpveV9hcHAvc3JjL2FwcC9wYWdlcy9hZGQtbmV3LWFkZHJlc3MvYWRkLW5ldy1hZGRyZXNzLnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZXMvYWRkLW5ldy1hZGRyZXNzL2FkZC1uZXctYWRkcmVzcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0EsV0FBQTtFQUNBLHNCQUFBO0FDQ0o7O0FEQ0E7RUFDSSxhQUFBO0FDRUo7O0FEREk7RUFDSSxpQkFBQTtFQUNBLGFBQUE7RUFDQSxnQkFBQTtBQ0dSIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvYWRkLW5ldy1hZGRyZXNzL2FkZC1uZXctYWRkcmVzcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGl2X21hcHtcbiAgICBoZWlnaHQ6IDUwdmg7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgYm9yZGVyOiAxcHggc29saWQgZ3JheTtcbn1cbi5pbmZvcm1hdGlvbnN7XG4gICAgcGFkZGluZzogMTBweDtcbiAgICAudGl0bGV7XG4gICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgICAgICBwYWRkaW5nOiAxMHB4O1xuICAgICAgICBtYXJnaW4tdG9wOiAyMHB4O1xuICAgIH1cbn1cbiIsIi5kaXZfbWFwIHtcbiAgaGVpZ2h0OiA1MHZoO1xuICB3aWR0aDogMTAwJTtcbiAgYm9yZGVyOiAxcHggc29saWQgZ3JheTtcbn1cblxuLmluZm9ybWF0aW9ucyB7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG4uaW5mb3JtYXRpb25zIC50aXRsZSB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBwYWRkaW5nOiAxMHB4O1xuICBtYXJnaW4tdG9wOiAyMHB4O1xufSJdfQ== */");
 
 /***/ }),
 
@@ -182,7 +182,7 @@ let AddNewAddressPage = class AddNewAddressPage {
                 this.grantRequest();
             }
             else {
-                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
                     if (resp) {
                         console.log('resp', resp);
                         this.lat = resp.coords.latitude;
@@ -197,7 +197,7 @@ let AddNewAddressPage = class AddNewAddressPage {
     grantRequest() {
         this.diagnostic.isLocationEnabled().then((data) => {
             if (data) {
-                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
                     if (resp) {
                         console.log('resp', resp);
                         this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
@@ -207,7 +207,7 @@ let AddNewAddressPage = class AddNewAddressPage {
             }
             else {
                 this.diagnostic.switchToLocationSettings();
-                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
+                this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
                     if (resp) {
                         console.log('ress,', resp);
                         this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
@@ -234,10 +234,10 @@ let AddNewAddressPage = class AddNewAddressPage {
         ];
         const mapOptions = {
             zoom: 15,
-            scaleControl: false,
+            scaleControl: true,
             streetViewControl: false,
-            zoomControl: false,
-            overviewMapControl: false,
+            zoomControl: true,
+            overviewMapControl: true,
             center: location,
             mapTypeControl: false,
             mapTypeControlOptions: {
@@ -249,6 +249,7 @@ let AddNewAddressPage = class AddNewAddressPage {
         this.map.mapTypes.set('Foodfire5', mapType);
         this.map.setMapTypeId('Foodfire5');
         this.addMarker(location);
+        this.addLocationButton(this.map, this.marker);
     }
     getAddress(lat, lng) {
         const geocoder = new google.maps.Geocoder();
@@ -371,6 +372,53 @@ let AddNewAddressPage = class AddNewAddressPage {
             console.log('error', error);
             this.util.errorToast(this.util.translate('Something went wrong'));
         });
+    }
+    addLocationButton(map, marker) {
+        var controlDiv = document.createElement('div');
+        var firstChild = document.createElement('button');
+        firstChild.style.backgroundColor = '#fff';
+        firstChild.style.border = 'none';
+        firstChild.style.outline = 'none';
+        firstChild.style.width = '28px';
+        firstChild.style.height = '28px';
+        firstChild.style.borderRadius = '2px';
+        firstChild.style.boxShadow = '0 1px 4px rgba(0,0,0,0.3)';
+        firstChild.style.cursor = 'pointer';
+        firstChild.style.marginRight = '10px';
+        firstChild.style.padding = '0px';
+        firstChild.title = 'Your Location';
+        controlDiv.appendChild(firstChild);
+        var secondChild = document.createElement('div');
+        secondChild.style.margin = '5px';
+        secondChild.style.width = '18px';
+        secondChild.style.height = '18px';
+        secondChild.style.backgroundImage = 'url(https://maps.gstatic.com/tactile/mylocation/mylocation-sprite-1x.png)';
+        secondChild.style.backgroundSize = '180px 18px';
+        secondChild.style.backgroundPosition = '0px 0px';
+        secondChild.style.backgroundRepeat = 'no-repeat';
+        secondChild.id = 'you_location_img';
+        firstChild.appendChild(secondChild);
+        firstChild.addEventListener('click', function () {
+            var imgX = '0';
+            var animationInterval = setInterval(function () {
+                if (imgX == '-18')
+                    imgX = '0';
+                else
+                    imgX = '-18';
+            }, 500);
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    marker.setPosition(latlng);
+                    map.setCenter(latlng);
+                    clearInterval(animationInterval);
+                });
+            }
+            else {
+                clearInterval(animationInterval);
+            }
+        });
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
     }
 };
 AddNewAddressPage.ctorParameters = () => [

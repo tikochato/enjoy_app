@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button mode=\"md\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>{{'Payments' | translate}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"header\">\n    <ion-label class=\"title\">{{'Payment Options' | translate}}</ion-label>\n  </div>\n  <ion-item (click)=\"openStripe()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/stripe.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Pay with' | translate}} Stripe</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item>\n\n  <ion-item (click)=\"payWithPaypal()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/paypal.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Pay with' | translate}} Paypal</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item>\n\n  <ion-item (click)=\"placeOrder()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/cod.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Cash on Delivery' | translate}}</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button mode=\"md\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>{{'Payments' | translate}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"header\">\n    <ion-label class=\"title\">{{'Payment Options' | translate}}</ion-label>\n  </div>\n  \n  <!-- <ion-item (click)=\"openStripe()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/stripe.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Pay with' | translate}} Stripe</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item>\n\n  <ion-item (click)=\"payWithPaypal()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/paypal.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Pay with' | translate}} Paypal</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item> -->\n\n  <ion-item (click)=\"placeOrder()\">\n    <ion-thumbnail slot=\"start\">\n      <img src=\"assets/cod.png\" />\n    </ion-thumbnail>\n    <ion-label>{{'Cash on Delivery' | translate}}</ion-label>\n    <ion-icon mode=\"ios\" name=\"arrow-forward-outline\" slot=\"end\"></ion-icon>\n  </ion-item>\n</ion-content>");
 
 /***/ }),
 
@@ -329,7 +329,7 @@ let PaymentsPage = class PaymentsPage {
     }
     createOrder() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this.util.show('creating order');
+            this.util.show(this.util.translate('Creating order'));
             this.api.checkAuth().then((data) => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
                 console.log(data);
                 if (data) {
