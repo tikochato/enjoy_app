@@ -18,7 +18,7 @@ export class PaymentsPage implements OnInit {
   totalPrice: any = 0;
   totalItem: any = 0;
   serviceTax: any = 0;
-  deliveryCharge: any = 5;
+  deliveryCharge: any = 0;
   grandTotal: any = 0;
   deliveryAddress: any;
   venueFCM: any = '';
@@ -75,10 +75,6 @@ export class PaymentsPage implements OnInit {
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
     console.log('total item', this.totalItem);
     console.log('=====>', this.totalPrice);
-    const tax = (parseFloat(this.totalPrice) * 21) / 100;
-    this.serviceTax = tax.toFixed(2);
-    console.log('tax->', this.serviceTax);
-    this.deliveryCharge = 5;
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
     this.grandTotal = this.grandTotal.toFixed(2);
     console.log('grand totla', this.grandTotal);
@@ -94,10 +90,6 @@ export class PaymentsPage implements OnInit {
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2);
-        console.log('tax->', this.serviceTax);
-        this.deliveryCharge = 5;
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
@@ -109,10 +101,6 @@ export class PaymentsPage implements OnInit {
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-        const tax = (parseFloat(this.totalPrice) * 21) / 100;
-        this.serviceTax = tax.toFixed(2);
-        console.log('tax->', this.serviceTax);
-        this.deliveryCharge = 5;
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.grandTotal = this.grandTotal.toFixed(2);
       }
@@ -259,7 +247,7 @@ export class PaymentsPage implements OnInit {
           total: this.totalPrice,
           grandTotal: this.grandTotal,
           serviceTax: this.serviceTax,
-          deliveryCharge: 5,
+          deliveryCharge: this.deliveryCharge,
           status: 'created',
           restId: this.vid,
           // driverId: this.drivers[0].uid,
@@ -371,7 +359,7 @@ export class PaymentsPage implements OnInit {
           total: this.totalPrice,
           grandTotal: this.grandTotal,
           serviceTax: this.serviceTax,
-          deliveryCharge: 5,
+          deliveryCharge: this.deliveryCharge,
           status: 'created',
           restId: this.vid,
           paid: 'paypal',

@@ -54,10 +54,10 @@ adb logcat
   - [x] Add button to get actual location
   - [ ] Add search of address by text
 - [x] Remove Plus taxes, only show total
-- [ ] Total Price
-  - [ ] Add % fee
-  - [ ] Sum price + fee
-- [ ] Delivery time in mins. 
+- [x] Total Price
+  - [x] Add delivery charge
+  - [x] Sum price + fee
+- [x] Delivery time in mins. 
 - [ ] Orders Status / Orders Status Detaills
   - [ ] completed
   - [ ] delivered

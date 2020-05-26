@@ -15,6 +15,7 @@ export class HistoryDetailPage implements OnInit {
   grandTotal: any;
   orders: any[] = [];
   serviceTax: any;
+  deliveryCharge: any;
   status: any;
   time: any;
   total: any;
@@ -63,6 +64,7 @@ export class HistoryDetailPage implements OnInit {
         this.grandTotal = data.grandTotal;
         this.orders = JSON.parse(data.order);
         this.serviceTax = data.serviceTax;
+        this.deliveryCharge = data.deliveryCharge;
         this.status = data.status;
         this.time = data.time;
         if (data && data.dId && data.dId.fullname) {

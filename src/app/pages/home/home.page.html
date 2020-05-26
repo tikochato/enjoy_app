@@ -72,8 +72,9 @@
           </div>
         </ion-col>
         <ion-col size="2">
-          <div class="ratting">
-            <ion-label class="rateNumber">{{item.ratting}}</ion-label>
+          <div class="deliveryCharge">
+            <ion-label class="deliveryCharge" *ngIf="item.deliveryCharge > 0">+{{'currencyCode' | translate }}{{item.deliveryCharge}}</ion-label>
+            <ion-label class="deliveryChargeFree" *ngIf="item.deliveryCharge == 0">{{'Free' | translate }}</ion-label>
           </div>
           <p class="closed" *ngIf="item && item.status =='close'">{{'Closed' | translate}}</p>
         </ion-col>

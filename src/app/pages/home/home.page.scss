@@ -287,13 +287,27 @@ ion-toolbar:last-child {
                 
             }
             .ratting{
-                background: green;
+                background: rgb(15, 128, 0);
                 padding: 2px 5px;
                 text-align: center;
                 .rateNumber{
                     color: white;
                     font-size: 0.8rem;
                 }
+            }
+            .deliveryCharge{
+                background: rgb(240, 203, 38);
+                padding: 2px 5px;
+                text-align: center;
+                color: black;
+                font-size: 0.8rem;
+            }
+            .deliveryChargeFree{
+                background: rgb(28, 153, 11);
+                padding: 2px 5px;
+                text-align: center;
+                color: white;
+                font-size: 0.8rem;
             }
         }
         .cardClosed{
