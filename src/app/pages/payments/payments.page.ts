@@ -59,6 +59,7 @@ export class PaymentsPage implements OnInit {
     this.coupon = JSON.parse(localStorage.getItem('coupon'));
     console.log('COUPON===================', this.coupon);
     console.log('ADDRESS===================', this.deliveryAddress);
+    this.deliveryCharge = localStorage.getItem('deliveryCharge');
     this.calculate(recheck);
   }
 
@@ -110,6 +111,7 @@ export class PaymentsPage implements OnInit {
       localStorage.removeItem('coupon');
     }
   }
+
   placeOrder() {
     console.log('place order');
     swal.fire({
@@ -129,8 +131,6 @@ export class PaymentsPage implements OnInit {
       }
     });
   }
-
-
 
   // For Testing Generate Credit Card American Express
   // https://developer.paypal.com/developer/creditCardGenerator/
@@ -196,6 +196,7 @@ export class PaymentsPage implements OnInit {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return earthRadiusKm * c;
   }
+
   async createOrder() {
     this.util.show(this.util.translate('Creating order'));
     this.api.checkAuth().then(async (data: any) => {
@@ -229,6 +230,8 @@ export class PaymentsPage implements OnInit {
         await localStorage.removeItem('foods');
         await localStorage.removeItem('vid');
         await localStorage.removeItem('totalItem');
+        const deliveryCharge = localStorage.getItem('deliveryCharge');
+        await localStorage.removeItem('deliveryCharge');
         const uid = localStorage.getItem('uid');
         const lng = localStorage.getItem('language');
         const selectedCity = localStorage.getItem('selectedCity');
@@ -247,7 +250,7 @@ export class PaymentsPage implements OnInit {
           total: this.totalPrice,
           grandTotal: this.grandTotal,
           serviceTax: this.serviceTax,
-          deliveryCharge: this.deliveryCharge,
+          deliveryCharge: deliveryCharge,
           status: 'created',
           restId: this.vid,
           // driverId: this.drivers[0].uid,
@@ -275,7 +278,6 @@ export class PaymentsPage implements OnInit {
             icon: 'success',
             backdrop: false,
           });
-
 
           this.navCtrl.navigateRoot(['tabs/tab2']);
           console.log(data);
@@ -341,6 +343,7 @@ export class PaymentsPage implements OnInit {
         await localStorage.removeItem('foods');
         await localStorage.removeItem('vid');
         await localStorage.removeItem('totalItem');
+        await localStorage.removeItem('deliveryCharge');
         const uid = localStorage.getItem('uid');
         const lng = localStorage.getItem('language');
         const selectedCity = localStorage.getItem('selectedCity');

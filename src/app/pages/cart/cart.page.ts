@@ -26,6 +26,7 @@ export class CartPage implements OnInit {
   totalRatting: any = 0;
   coupon: any;
   dicount: any;
+
   constructor(
     private api: ApisService,
     private router: Router,
@@ -46,8 +47,8 @@ export class CartPage implements OnInit {
   }
 
   ngOnInit() {
-
   }
+
   getAddress() {
     const add = JSON.parse(localStorage.getItem('deliveryAddress'));
     if (add && add.address) {
@@ -55,10 +56,10 @@ export class CartPage implements OnInit {
     }
     return this.deliveryAddress;
   }
-  getVenueDetails() {
 
+  getVenueDetails() {
     // Venue Details
-    this.api.getVenueDetails(this.vid).then(data => {
+    return this.api.getVenueDetails(this.vid).then(data => {
       console.log(data);
       if (data) {
         this.name = data.name;
@@ -67,6 +68,8 @@ export class CartPage implements OnInit {
         this.address = data.address;
         this.time = data.time;
         this.totalRatting = data.totalRatting;
+        this.deliveryCharge = data.deliveryCharge;
+        localStorage.setItem('deliveryCharge', this.deliveryCharge);
       }
     }, error => {
       console.log(error);
@@ -78,14 +81,13 @@ export class CartPage implements OnInit {
   }
 
   validate() {
-
     this.api.checkAuth().then(async (user) => {
       if (user) {
         const id = await localStorage.getItem('vid');
         console.log('id', id);
         if (id) {
           this.vid = id;
-          this.getVenueDetails();
+          await this.getVenueDetails();
           const foods = await localStorage.getItem('foods');
           if (foods) {
             this.foods = await JSON.parse(foods);
@@ -115,6 +117,7 @@ export class CartPage implements OnInit {
   ionViewWillEnter() {
     this.validate();
   }
+
   getCart() {
     this.navCtrl.navigateRoot(['tabs/tab1']);
   }
@@ -124,6 +127,7 @@ export class CartPage implements OnInit {
     localStorage.setItem('foods', JSON.stringify(this.foods));
     this.calculate();
   }
+
   removeQ(index) {
     if (this.foods[index].quantiy != 0) {
       this.foods[index].quantiy = this.foods[index].quantiy - 1;
@@ -133,8 +137,6 @@ export class CartPage implements OnInit {
     localStorage.setItem('foods', JSON.stringify(this.foods));
     this.calculate();
   }
-
-
 
   async calculate() {
     console.log(this.foods);
@@ -203,6 +205,7 @@ export class CartPage implements OnInit {
     };
     this.router.navigate(['choose-address'], navData);
   }
+
   checkout() {
     const navData: NavigationExtras = {
       queryParams: {
@@ -212,6 +215,7 @@ export class CartPage implements OnInit {
     this.router.navigate(['choose-address'], navData);
     // this.router.navigate(['payments']);
   }
+
   openCoupon() {
     const navData: NavigationExtras = {
       queryParams: {
