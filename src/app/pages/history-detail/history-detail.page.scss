@@ -5,7 +5,7 @@
 
     .support_lbl{
         margin-right: 20px;
-        color: red;
+        color: var(--ion-color-primary-shade);
     }
 }
 
@@ -46,9 +46,9 @@
         margin-top: 20px;
 
         .fav_lbl{
-            color: red;
+            color: var(--ion-color-primary-shade);
             font-size: 12px;
-            border: 1px solid red;
+            border: 1px solid var(--ion-color-primary-shade);
             border-radius: 25px;
             padding: 2px 10px;
         }
@@ -97,7 +97,7 @@
         margin-bottom: 15px;
     }
     .red_lbl{
-        color: red;
+        color: var(--ion-color-primary-shade);
         text-align: center;
         margin-top: 20px;
         margin-bottom: 20px;

@@ -48,7 +48,7 @@ export class AppComponent {
           navigator['app'].exitApp();
         }
       });
-      this.statusBar.backgroundColorByHexString('#ff384c');
+      this.statusBar.backgroundColorByHexString('#F57C00');
       this.splashScreen.hide();
     });
   }

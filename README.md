@@ -52,22 +52,23 @@ adb logcat
 - [ ] Restaurants by city: Show only near restaurants
 - [ ] Address Maps 
   - [x] Add button to get actual location
-  - [ ] Add search of address by text
+  - [ ] Add location search by text
 - [x] Remove Plus taxes, only show total
 - [x] Total Price
   - [x] Add delivery charge
   - [x] Sum price + fee
 - [x] Delivery time in mins. 
-- [ ] Orders Status / Orders Status Detaills
-  - [ ] completed
-  - [ ] delivered
-  - [ ] rejected
-  - [ ] cancel
-  - [ ] created
-  - [ ] ongoing
-  - [ ] accepted
+- [x] Orders Status / Orders Status Detaills
+  - [x] completed
+  - [x] delivered
+  - [x] rejected
+  - [x] cancel
+  - [x] created
+  - [x] ongoing
+  - [x] accepted
 - [ ] Payments Types
   - [x] Cash on Delivery
   - [ ] Credit/Debit Cards
   - [ ] Stripe ?
   - [ ] Paypal ?
+- [ ] ~$ Dish Per Person automatically calculated

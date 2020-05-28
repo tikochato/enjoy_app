@@ -113,7 +113,7 @@ export class ChooseAddressPage implements OnInit {
             background: 'white',
             showCancelButton: true,
             showConfirmButton: true,
-            cancelButtonText: this.util.translate('cancel')
+            cancelButtonText: this.util.translate('Cancel')
           }).then(data => {
             console.log(data);
             if (data && data.value) {

@@ -71,13 +71,13 @@
         </div>
         <div class="status_detail" *ngIf="item.status =='rejected' || item.status == 'cancel'">
           <div class="deliver_div">
-            {{'Your Order is' | translate}} {{item.status}}
+            {{'Your Order is' | translate}} {{item.status | translate}}
           </div>
         </div>
         <div class="status_detail"
           *ngIf="item.status =='created' || item.status =='ongoing' || item.status === 'accepted'">
           <div class="deliver_div">
-            {{'Your Order is' | translate}} {{item.status}}
+            {{'Your Order is' | translate}} {{item.status | translate}}
           </div>
           <div class="repeat_div" style="color: green;">
             <ion-icon name="map-outline"></ion-icon>{{'Track Order' | translate}}

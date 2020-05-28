@@ -122,7 +122,7 @@ export class PaymentsPage implements OnInit {
       backdrop: false,
       background: 'white',
       confirmButtonText: this.util.translate('Yes'),
-      cancelButtonText: this.util.translate('cancel'),
+      cancelButtonText: this.util.translate('Cancel'),
     }).then((data) => {
       console.log(data);
       if (data && data.value) {

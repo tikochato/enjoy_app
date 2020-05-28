@@ -73,3 +73,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .vscode/
+
+signing.md
+enjoy-app-release-key.keystore
