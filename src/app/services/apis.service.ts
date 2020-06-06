@@ -81,8 +81,24 @@ export class ApisService {
     });
   }
 
+  public getCityById(id: string): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.adb.collection('cities').doc(id).get().subscribe((city: any) => {
+        let data = city.docs.map(element => {
+          let item = element.data();
+          item.id = element.id;
+          return item;
+        });
+        resolve(data);
+      }, error => {
+        reject(error);
+      });
+    });
+  }
+
   public register(email: string, password: string, fullname: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
+      const selectedCity = JSON.parse(localStorage.getItem('selectedCity'));
       this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
         .then(res => {
           if (res.user) {
@@ -92,6 +108,7 @@ export class ApisService {
               fullname: fullname,
               type: 'user',
               status: 'active',
+              cityId: selectedCity.id,
               fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : ''
             });
             this.authInfo$.next(new AuthInfo(res.user.uid));
@@ -158,6 +175,7 @@ export class ApisService {
       });
     });
   }
+
   public getMyProfile(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('users').doc(id).get().subscribe((users: any) => {
@@ -212,7 +230,6 @@ export class ApisService {
     });
   }
 
-
   public getMessages(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('messages').doc(id).collection('chats').get().subscribe((messages: any) => {
@@ -244,7 +261,6 @@ export class ApisService {
       });
     });
   }
-
 
   public addNewAddress(uid, id, param): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -328,7 +344,6 @@ export class ApisService {
     return this.http.post('https://onesignal.com/api/v1/notifications', body, header);
   }
 
-
   public getMyOrders(id): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('orders', ref => ref.where('userId', '==', id)).get().subscribe(async (venue) => {
@@ -380,7 +395,6 @@ export class ApisService {
     });
   }
 
-
   public updateOrderStatus(id, value): Promise<any> {
     return new Promise<any>(async (resolve, reject) => {
       this.adb.collection('orders').doc(id).update({ status: value }).then(async (order: any) => {
@@ -405,7 +419,6 @@ export class ApisService {
       });
     });
   }
-
 
   public sendOrderToDriver(id, param): Promise<any> {
     return new Promise<any>((resolve, reject) => {

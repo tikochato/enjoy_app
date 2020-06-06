@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './cities.page.html',
   styleUrls: ['./cities.page.scss'],
 })
+
 export class CitiesPage implements OnInit {
   cities: any[] = [];
   dummy = Array(10);
@@ -27,7 +28,11 @@ export class CitiesPage implements OnInit {
     }
     this.translate.use(localStorage.getItem('language'));
     this.getCities();
+
+    const city = JSON.parse(localStorage.getItem('selectedCity'));
+    this.selectedCity = city || null;
   }
+
   getCities() {
     this.api.getCities().then((data) => {
       console.log(data);
@@ -49,6 +54,7 @@ export class CitiesPage implements OnInit {
 
   ngOnInit() {
   }
+
   goNext() {
     console.log('next', this.selectedCity);
     const data = this.cities.filter(x => x.id === this.selectedCity);
@@ -57,9 +63,11 @@ export class CitiesPage implements OnInit {
     this.util.publishLocation('data');
     this.navCtrl.navigateRoot(['/tabs']);
   }
+
   getClassName() {
     return localStorage.getItem('language');
   }
+
   changeLng(lng) {
     localStorage.setItem('language', lng);
     this.translate.use(lng);

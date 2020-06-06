@@ -16,8 +16,8 @@ declare var google;
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
 
+export class HomePage implements OnInit {
   plt;
   allRest: any[] = [];
   headerHidden: boolean;
@@ -37,6 +37,7 @@ export class HomePage implements OnInit {
   };
   cityName: any;
   cityId: any;
+
   constructor(
     private platform: Platform,
     private androidPermissions: AndroidPermissions,
@@ -65,12 +66,27 @@ export class HomePage implements OnInit {
     }).catch(error => {
       console.log(error);
     });
-    const city = JSON.parse(localStorage.getItem('selectedCity'));
-    console.log(city);
-    if (city && city.name) {
-      this.cityName = city.name;
-      this.cityId = city.id;
-      this.getRest();
+  }
+
+  setCity(cityId) {
+    const storageCity = JSON.parse(localStorage.getItem('selectedCity'));
+    console.log(storageCity);
+    if (storageCity && storageCity.name) {
+      this.cityName = storageCity.name;
+      this.cityId = storageCity.id;
+      return this.getRest();
+    }
+
+    if (cityId) {
+      this.api.getCityById(cityId)
+        .then(city => {
+          localStorage.setItem('selectedCity', JSON.stringify(city));
+          this.cityName = city.name;
+          this.cityId = city.id;
+          return this.getRest();
+        }).catch(error => {
+          console.log(error);
+        });
     }
   }
 
@@ -88,6 +104,7 @@ export class HomePage implements OnInit {
     }
     this.allRest = uniqBy(this.allRest, 'id');
   }
+
   ionViewWillEnter() {
     this.getLocation();
     this.getProfile();
@@ -202,6 +219,7 @@ export class HomePage implements OnInit {
   degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
   }
+
   distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
     console.log(lat1, lon1, lat2, lon2);
     const earthRadiusKm = 6371;
@@ -275,6 +293,7 @@ export class HomePage implements OnInit {
       this.dummy = [];
     });
   }
+
   openMenu(item) {
     if (item && item.status === 'close') {
       return false;
@@ -320,38 +339,41 @@ export class HomePage implements OnInit {
 
   getProfile() {
     if (localStorage.getItem('uid')) {
-
-      this.apis.getProfile(localStorage.getItem('uid')).then((data) => {
-        console.log(data);
-        if (data && data.cover) {
-          this.profile = data.cover;
-        }
-        if (data && data.status === 'deactive') {
-          localStorage.removeItem('uid');
-          this.api.logout().then(data => {
-            console.log(data);
-          });
-          this.router.navigate(['login']);
-          Swal.fire({
-            title: 'Error',
-            text: 'Your are blocked please contact administrator',
-            icon: 'error',
-            showConfirmButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Need Help?',
-            backdrop: false,
-            background: 'white'
-          }).then(data => {
-            if (data && data.value) {
-              this.router.navigate(['inbox']);
-            }
-          });
-        }
-      }, err => {
-        console.log('Err', err);
-      }).catch(e => {
-        console.log('Err', e);
-      });
+      this.apis.getProfile(localStorage.getItem('uid'))
+        .then((data) => {
+          console.log('*** uid: ' + JSON.stringify(data));
+          if (data && data.cover) {
+            this.profile = data.cover;
+          }
+          if (data && data.cityId) {
+            this.setCity(data.cityId);
+          }
+          if (data && data.status === 'deactive') {
+            localStorage.removeItem('uid');
+            this.api.logout().then(data => {
+              console.log(data);
+            });
+            this.router.navigate(['login']);
+            Swal.fire({
+              title: 'Error',
+              text: 'Your are blocked please contact administrator',
+              icon: 'error',
+              showConfirmButton: true,
+              showCancelButton: true,
+              confirmButtonText: 'Need Help?',
+              backdrop: false,
+              background: 'white'
+            }).then(data => {
+              if (data && data.value) {
+                this.router.navigate(['inbox']);
+              }
+            });
+          }
+        }, err => {
+          console.log('Err', err);
+        }).catch(e => {
+          console.log('Err', e);
+        });
     }
   }
 
@@ -383,8 +405,8 @@ export class HomePage implements OnInit {
         return a > b ? -1 : a < b ? 1 : 0;
       });
     }
-
   }
+
   changeLocation() {
     this.navCtrl.navigateRoot(['cities']);
   }

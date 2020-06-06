@@ -29,6 +29,7 @@ brew cask install java
 ```
 emulator -list-avds
 emulator -avd Pixel_2_API_R
+emulator @Pixel_2_API_R -logcat *:e
 ```
 
 #### Install App
@@ -48,7 +49,9 @@ adb logcat
   - [ ] Set language with ubication 
   - [ ] Spanish language as default
   - [ ] Texts (ES/EN) instead of buttons
-- [ ] Select City: Set city by user location
+- [ ] Select City
+  - [x] Default city 
+  - [ ] Set city by user location
 - [ ] Restaurants by city: Show only near restaurants
 - [ ] Address Maps 
   - [x] Add button to get actual location
@@ -72,3 +75,16 @@ adb logcat
   - [ ] Stripe ?
   - [ ] Paypal ?
 - [ ] ~$ Dish Per Person automatically calculated
+- [ ] Tips for drivers
+- [ ] Historial
+  - [ ] Add 'order status' filter 
+- [ ] Notifications
+  - [ ] New incoming message
+  - [ ] Order status changed
+- [ ] Translations
+  - [ ] Order tracking
+    - [ ] Currency code
+    - [ ] Order status
+  - [ ] Login
+    - [ ] Failed login message "login failed ..."
+- [ ] Add "Bring change for ..."
