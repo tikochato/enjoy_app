@@ -64,7 +64,7 @@
 
         <div class="line_div"></div>
 
-        <div class="status_detail" *ngIf="item.status =='completed' || item.status == 'delivered'">
+        <div class="status_detail" *ngIf="item.status == 'delivered'">
           <div class="deliver_div">
             {{'Delivered' | translate}}
           </div>
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="status_detail"
-          *ngIf="item.status =='created' || item.status =='ongoing' || item.status === 'accepted'">
+          *ngIf="item.status =='created' || item.status =='accepted'  || item.status =='ready' || item.status =='ongoing' || item.status === 'picked'">
           <div class="deliver_div">
             {{'Your Order is' | translate}} {{item.status | translate}}
           </div>

@@ -248,36 +248,56 @@ export class HomePage implements OnInit {
     await this.router.navigate(['choose-address']);
   }
 
+  // nearMe() {
+  //   console.log('nearMe');
+  //   this.dummy = Array(50);
+  //   this.allRest = [];
+  //   if (this.nearme) {
+  //     this.dummyRest.forEach(async (element) => {
+  //       const distance = await this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, element.lat, element.lng);
+  //       console.log('distance', distance);
+  //       // Distance
+  //       if (distance < 10) {
+  //         this.allRest.push(element);
+  //       }
+  //     });
+  //     this.dummy = [];
+  //   } else {
+  //     this.allRest = this.dummyRest;
+  //     this.dummy = [];
+  //   }
+  // }
+
   nearMe() {
+    console.log(`nearMe: ${this.nearme}`);
     this.dummy = Array(50);
     this.allRest = [];
     if (this.nearme) {
+      this.allRest = this.dummyRest;
+      this.dummy = [];
+    } else {
       this.dummyRest.forEach(async (element) => {
-        const distance = await this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, element.lat, element.lng);
-        console.log('distance', distance);
-        // Distance
-        if (distance < 10) {
+        if (element && element.city === this.cityId) {
+          element.time = moment(element.time).format('HH');
           this.allRest.push(element);
         }
       });
-      this.dummy = [];
-    } else {
-      this.allRest = this.dummyRest;
       this.dummy = [];
     }
   }
 
   getRest() {
+    console.log('getRest');
     this.dummy = Array(10);
     this.api.getVenues().then(data => {
       console.log(data);
       if (data && data.length) {
         this.allRest = [];
         data.forEach(async (element) => {
-          if (element && element.isClose === false && element.city === this.cityId) {
+          this.dummyRest.push(element);
+          if (element && element.city === this.cityId) {
             element.time = moment(element.time).format('HH');
             this.allRest.push(element);
-            this.dummyRest.push(element);
           }
         });
         this.dummy = [];
