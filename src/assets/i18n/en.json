@@ -191,11 +191,12 @@
     "Local": "Local",
     "American": "American",
     "Other": "Other",
-    "completed": "completed",
+    "created": "created",
+    "accepted": "accepted",
+    "ready": "ready",
+    "ongoing": "ongoing",
+    "picked": "picked",
     "delivered": "delivered",
     "rejected": "rejected",
-    "cancel": "cancel",
-    "created": "created",
-    "ongoing": "ongoing",
-    "accepted": "accepted"
+    "cancel": "cancel"
 }

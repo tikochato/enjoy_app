@@ -62,13 +62,14 @@ adb logcat
   - [x] Sum price + fee
 - [x] Delivery time in mins. 
 - [x] Orders Status / Orders Status Detaills
-  - [x] completed
+  - [x] created
+  - [x] accepted
+  - [ ] ready
+  - [x] ongoing
+  - [ ] picked
   - [x] delivered
   - [x] rejected
   - [x] cancel
-  - [x] created
-  - [x] ongoing
-  - [x] accepted
 - [ ] Payments Types
   - [x] Cash on Delivery
   - [ ] Credit/Debit Cards

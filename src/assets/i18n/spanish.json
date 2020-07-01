@@ -191,11 +191,12 @@
     "Local": "Típica",
     "American": "Americana",
     "Other": "Otra",
-    "completed": "completada",
+    "created": "creada",
+    "accepted": "aceptada",
+    "ready": "lista",
+    "ongoing": "en camino",
+    "picked": "recogida",
     "delivered": "entregada",
     "rejected": "rechazada",
-    "cancel": "cancelada",
-    "created": "creada",
-    "ongoing": "en camino",
-    "accepted": "aceptada"
+    "cancel": "cancelada"
 }
