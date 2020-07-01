@@ -52,8 +52,8 @@ export class HomePage implements OnInit {
   ) {
     const currentLng = this.util.getLanguage();
     console.log('current language --->', currentLng);
-    this.chips = [this.util.translate('Ratting 4.0+'), this.util.translate('Fastest Delivery'), this.util.translate('Cost')];
-    // ['Ratting 4.0+', 'Fastest Delivery', 'Cost'];
+    this.chips = [this.util.translate('Rating 4.0+'), this.util.translate('Fastest Delivery'), this.util.translate('Cost')];
+    // ['Rating 4.0+', 'Fastest Delivery', 'Cost'];
     this.haveLocation = false;
     if (this.platform.is('ios')) {
       this.plt = 'ios';
@@ -94,7 +94,7 @@ export class HomePage implements OnInit {
     console.log(index);
     if (index === 0) {
       console.log('rating');
-      this.allRest = orderBy(this.allRest, 'ratting', 'desc');
+      this.allRest = orderBy(this.allRest, 'rating', 'desc');
     } else if (index === 1) {
       console.log('fast');
       this.allRest = orderBy(this.allRest, 'time', 'asc');
@@ -408,11 +408,11 @@ export class HomePage implements OnInit {
       });
     }
 
-    if (item === 'Ratting 4.0+') {
+    if (item === 'Rating 4.0+') {
       this.allRest = [];
 
       this.dummyRest.forEach(ele => {
-        if (ele.ratting >= 4) {
+        if (ele.rating >= 4) {
           this.allRest.push(ele);
         }
       });

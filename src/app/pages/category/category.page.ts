@@ -18,9 +18,9 @@ export class CategoryPage implements OnInit {
   descritions: any;
   cover: any = '';
   address: any;
-  ratting: any;
+  rating: any;
   time: any;
-  totalRatting: any;
+  totalRating: any;
   dishPrice: any;
   cusine: any[] = [];
   foods: any[] = [];
@@ -69,8 +69,8 @@ export class CategoryPage implements OnInit {
         this.descritions = data.descritions;
         this.cover = data.cover;
         this.address = data.address;
-        this.ratting = data.ratting ? data.ratting : 0;
-        this.totalRatting = data.totalRatting ? data.totalRatting : 0;
+        this.rating = data.rating ? data.rating : 0;
+        this.totalRating = data.totalRating ? data.totalRating : 0;
         this.dishPrice = data.dishPrice;
         this.time = data.time;
         this.cusine = data.cusine;
@@ -141,10 +141,10 @@ export class CategoryPage implements OnInit {
               id: element.id,
               name: element && element.variation ? element.name + ' (Regular)' : element.name,
               price: element.price,
-              ratting: element.ratting,
+              rating: element.rating,
               uid: element.uid,
               quantiy: 0,
-              totalRatting: element.totalRatting ? element.totalRatting : 0
+              totalRating: element.totalRating ? element.totalRating : 0
             };
             this.foods.push(info);
             this.dummyFoods.push(info);
@@ -158,10 +158,10 @@ export class CategoryPage implements OnInit {
                 id: element.id,
                 name: element.name + ' (small)',
                 price: element.small,
-                ratting: element.ratting,
+                rating: element.rating,
                 uid: element.uid,
                 quantiy: 0,
-                totalRatting: element.totalRatting ? element.totalRatting : 0
+                totalRating: element.totalRating ? element.totalRating : 0
               };
               this.foods.push(info);
               this.dummyFoods.push(info);
@@ -177,10 +177,10 @@ export class CategoryPage implements OnInit {
                 id: element.id,
                 name: element.name + ' (medium)',
                 price: element.medium,
-                ratting: element.ratting,
+                rating: element.rating,
                 uid: element.uid,
                 quantiy: 0,
-                totalRatting: element.totalRatting ? element.totalRatting : 0
+                totalRating: element.totalRating ? element.totalRating : 0
               };
               this.foods.push(info);
               this.dummyFoods.push(info);
@@ -196,10 +196,10 @@ export class CategoryPage implements OnInit {
                 id: element.id,
                 name: element.name + ' (large)',
                 price: element.large,
-                ratting: element.ratting,
+                rating: element.rating,
                 uid: element.uid,
                 quantiy: 0,
-                totalRatting: element.totalRatting ? element.totalRatting : 0
+                totalRating: element.totalRating ? element.totalRating : 0
               };
               this.foods.push(info);
               this.dummyFoods.push(info);

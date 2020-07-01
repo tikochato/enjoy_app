@@ -35,7 +35,7 @@ export class RatePage implements OnInit {
       console.log(this.items);
       this.items.forEach(element => {
         element.rate = 0;
-        element.totalRatting = element.totalRatting ? element.totalRatting : 1;
+        element.totalRating = element.totalRating ? element.totalRating : 1;
       });
     }
   }
@@ -44,16 +44,16 @@ export class RatePage implements OnInit {
     console.log(this.items);
     this.items.forEach(async (element) => {
       console.log('elementt', element)
-      let totalRatting = 0;
-      totalRatting = (element.rate * element.totalRatting) / 100;
-      console.log('???', totalRatting);
-      totalRatting = totalRatting * 100;
-      if (!totalRatting) {
-        totalRatting = element.rate;
+      let totalRating = 0;
+      totalRating = (element.rate * element.totalRating) / 100;
+      console.log('???', totalRating);
+      totalRating = totalRating * 100;
+      if (!totalRating) {
+        totalRating = element.rate;
       }
       await this.adb.collection('foods').doc(element.uid).collection('all').doc(element.id).update({
-        ratting: totalRatting,
-        totalRatting: element.totalRatting + 1
+        rating: totalRating,
+        totalRating: element.totalRating + 1
       });
     });
     const id = Math.random().toString();

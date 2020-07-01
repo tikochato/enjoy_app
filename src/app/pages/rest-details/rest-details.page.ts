@@ -17,9 +17,9 @@ export class RestDetailsPage implements OnInit {
   descritions: any;
   cover: any = '';
   address: any;
-  ratting: any;
+  rating: any;
   time: any;
-  totalRatting: any;
+  totalRating: any;
   dishPrice: any;
   cusine: any[] = [];
   foods: any[] = [];
@@ -62,8 +62,8 @@ export class RestDetailsPage implements OnInit {
         this.descritions = data.descritions;
         this.cover = data.cover;
         this.address = data.address;
-        this.ratting = data.ratting ? data.ratting : 0;
-        this.totalRatting = data.totalRatting ? data.totalRatting : 2;
+        this.rating = data.rating ? data.rating : 0;
+        this.totalRating = data.totalRating ? data.totalRating : 2;
         this.dishPrice = data.dishPrice;
         this.open = data.openTime;
         this.close = data.closeTime;

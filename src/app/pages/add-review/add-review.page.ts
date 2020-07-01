@@ -22,11 +22,11 @@ export class AddReviewPage implements OnInit {
   downloadURL: Observable<string>;
   uploadProgress: Observable<number>;
   id: any;
-  ratting: any;
+  rating: any;
   coverImage: any = '';
   image: any = '';
   descriptions: any = '';
-  totalRatting: any;
+  totalRating: any;
   constructor(
     private route: ActivatedRoute,
     private api: ApisService,
@@ -49,8 +49,8 @@ export class AddReviewPage implements OnInit {
     this.api.getVenueDetails(this.id).then((data) => {
       console.log(data);
       if (data) {
-        this.ratting = data.ratting;
-        this.totalRatting = data.totalRatting;
+        this.rating = data.rating;
+        this.totalRating = data.totalRating;
       }
     }, error => {
       console.log('errir', error);
@@ -66,13 +66,13 @@ export class AddReviewPage implements OnInit {
     console.log(val);
   }
   addReview() {
-    const myRate = (this.ratting * this.rate);
-    let totalRatting = Math.round((this.totalRatting * 5) / myRate);
-    console.log('total', totalRatting);
-    if (!totalRatting) {
-      totalRatting = this.rate;
+    const myRate = (this.rating * this.rate);
+    let totalRating = Math.round((this.totalRating * 5) / myRate);
+    console.log('total', totalRating);
+    if (!totalRating) {
+      totalRating = this.rate;
     }
-    console.log(totalRatting);
+    console.log(totalRating);
     const review = {
       id: localStorage.getItem('uid'),
       descriptions: this.descriptions,
@@ -86,8 +86,8 @@ export class AddReviewPage implements OnInit {
     console.log('review', review);
     this.api.addReview(review).then((data) => {
       const restParam = {
-        ratting: this.ratting + 1,
-        totalRatting: totalRatting,
+        rating: this.rating + 1,
+        totalRating: totalRating,
         uid: this.id
       };
       console.log('restParam', restParam);

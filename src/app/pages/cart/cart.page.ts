@@ -23,7 +23,7 @@ export class CartPage implements OnInit {
   deliveryCharge: any = 0;
   grandTotal: any = 0;
   deliveryAddress: any = '';
-  totalRatting: any = 0;
+  totalRating: any = 0;
   coupon: any;
   dicount: any;
 
@@ -67,7 +67,7 @@ export class CartPage implements OnInit {
         this.cover = data.cover;
         this.address = data.address;
         this.time = data.time;
-        this.totalRatting = data.totalRatting;
+        this.totalRating = data.totalRating;
         this.deliveryCharge = data.deliveryCharge;
         localStorage.setItem('deliveryCharge', this.deliveryCharge);
       }

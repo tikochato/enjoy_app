@@ -16,9 +16,9 @@
         <div class="open_div" *ngIf="isOpen">{{'open' | translate}}</div>
         <div class="close_div" *ngIf="!isOpen">{{'Closed' | translate}}</div>
         <ion-badge class="menu_badge"
-          [ngStyle]="{'background-color': ratting>=80?'#00a573':ratting>=70 && ratting<79?'#fcb813':'#d24141'}"
+          [ngStyle]="{'background-color': rating>=80?'#00a573':rating>=70 && rating<79?'#fcb813':'#d24141'}"
           mode="ios">
-          {{ratting}}</ion-badge>
+          {{rating}}</ion-badge>
 
         <div class="abs_div">
           <ion-label class="bold_lbl">{{name}}</ion-label>
