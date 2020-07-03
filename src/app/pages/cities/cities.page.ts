@@ -28,12 +28,10 @@ export class CitiesPage implements OnInit {
     }
     this.translate.use(localStorage.getItem('language'));
     this.getCities();
-
-    const city = JSON.parse(localStorage.getItem('selectedCity'));
-    this.selectedCity = city || null;
   }
 
   getCities() {
+    const selectedCityId = localStorage.getItem('selectedCity');
     this.api.getCities().then((data) => {
       console.log(data);
       this.dummy = [];
@@ -42,6 +40,9 @@ export class CitiesPage implements OnInit {
           if (element && element.status === 'active') {
             this.cities.push(element);
             this.dummyList.push(element);
+            if (element.id == selectedCityId){
+              this.selectedCity = element.id;
+            }
           }
         });
       }
@@ -56,10 +57,7 @@ export class CitiesPage implements OnInit {
   }
 
   goNext() {
-    console.log('next', this.selectedCity);
-    const data = this.cities.filter(x => x.id === this.selectedCity);
-    console.log(data);
-    localStorage.setItem('selectedCity', JSON.stringify(data[0]));
+    localStorage.setItem('selectedCity', this.selectedCity);
     this.util.publishLocation('data');
     this.navCtrl.navigateRoot(['/tabs']);
   }

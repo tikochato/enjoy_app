@@ -84,12 +84,7 @@ export class ApisService {
   public getCityById(id: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.adb.collection('cities').doc(id).get().subscribe((city: any) => {
-        let data = city.docs.map(element => {
-          let item = element.data();
-          item.id = element.id;
-          return item;
-        });
-        resolve(data);
+        resolve(city.data());
       }, error => {
         reject(error);
       });

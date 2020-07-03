@@ -4,3 +4,4 @@
 - CRUD Orders
 - Create User
 - Login User
+- Set City automatically based on localStorage

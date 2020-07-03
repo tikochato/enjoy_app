@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   dummyRest: any[] = [];
   dummy = Array(50);
   haveLocation: boolean;
-  nearme: boolean = false;
+  nearme: boolean = true;
   profile: any;
   banners: any[] = [];
   slideOpts = {
@@ -51,7 +51,6 @@ export class HomePage implements OnInit {
     private navCtrl: NavController
   ) {
     const currentLng = this.util.getLanguage();
-    console.log('current language --->', currentLng);
     this.chips = [this.util.translate('Rating 4.0+'), this.util.translate('Fastest Delivery'), this.util.translate('Cost')];
     // ['Rating 4.0+', 'Fastest Delivery', 'Cost'];
     this.haveLocation = false;
@@ -61,26 +60,18 @@ export class HomePage implements OnInit {
       this.plt = 'android';
     }
     this.api.getBanners().then(data => {
-      console.log(data);
       this.banners = data;
     }).catch(error => {
       console.log(error);
     });
+    this.cityId = localStorage.getItem('selectedCity');
+    this.setCity(this.cityId);
   }
 
   setCity(cityId) {
-    const storageCity = JSON.parse(localStorage.getItem('selectedCity'));
-    console.log(storageCity);
-    if (storageCity && storageCity.name) {
-      this.cityName = storageCity.name;
-      this.cityId = storageCity.id;
-      return this.getRest();
-    }
-
     if (cityId) {
-      this.api.getCityById(cityId)
+      return this.api.getCityById(cityId)
         .then(city => {
-          localStorage.setItem('selectedCity', JSON.stringify(city));
           this.cityName = city.name;
           this.cityId = city.id;
           return this.getRest();
@@ -88,18 +79,16 @@ export class HomePage implements OnInit {
           console.log(error);
         });
     }
+
+    this.changeLocation();
   }
 
   addFilter(index) {
-    console.log(index);
     if (index === 0) {
-      console.log('rating');
       this.allRest = orderBy(this.allRest, 'rating', 'desc');
     } else if (index === 1) {
-      console.log('fast');
       this.allRest = orderBy(this.allRest, 'time', 'asc');
     } else {
-      console.log('cost');
       this.allRest = orderBy(this.allRest, 'dishPrice', 'asc');
     }
     this.allRest = uniqBy(this.allRest, 'id');
@@ -183,7 +172,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
   }
 
   // getAddress(lat, lng) {
@@ -269,33 +257,35 @@ export class HomePage implements OnInit {
   // }
 
   nearMe() {
-    console.log(`nearMe: ${this.nearme}`);
     this.dummy = Array(50);
     this.allRest = [];
     if (this.nearme) {
-      this.allRest = this.dummyRest;
-      this.dummy = [];
-    } else {
       this.dummyRest.forEach(async (element) => {
-        if (element && element.city === this.cityId) {
+        if (element && element.city == this.cityId) {
           element.time = moment(element.time).format('HH');
           this.allRest.push(element);
         }
       });
       this.dummy = [];
+    } else {
+      this.allRest = this.dummyRest;
+      this.dummy = [];
     }
   }
 
   getRest() {
-    console.log('getRest');
     this.dummy = Array(10);
     this.api.getVenues().then(data => {
-      console.log(data);
       if (data && data.length) {
         this.allRest = [];
         data.forEach(async (element) => {
           this.dummyRest.push(element);
-          if (element && element.city === this.cityId) {
+
+          if (!this.cityId) {
+            this.allRest.push(element);
+          }
+
+          if (element && element.city == this.cityId) {
             element.time = moment(element.time).format('HH');
             this.allRest.push(element);
           }
@@ -336,8 +326,6 @@ export class HomePage implements OnInit {
   }
 
   onSearchChange(event) {
-    console.log(event.detail.value);
-
     this.allRest = this.dummyRest.filter((ele: any) => {
       return ele.name.toLowerCase().includes(event.detail.value.toLowerCase());
     });
@@ -361,17 +349,17 @@ export class HomePage implements OnInit {
     if (localStorage.getItem('uid')) {
       this.apis.getProfile(localStorage.getItem('uid'))
         .then((data) => {
-          console.log('*** uid: ' + JSON.stringify(data));
           if (data && data.cover) {
             this.profile = data.cover;
           }
-          if (data && data.cityId) {
-            this.setCity(data.cityId);
-          }
+          // if (data && data.cityId) {
+          //   localStorage.setItem('selectedCity', data.cityId.toString());
+          //   this.cityId = data.cityId;
+          //   this.setCity(this.cityId);
+          // }
           if (data && data.status === 'deactive') {
             localStorage.removeItem('uid');
             this.api.logout().then(data => {
-              console.log(data);
             });
             this.router.navigate(['login']);
             Swal.fire({
@@ -399,7 +387,6 @@ export class HomePage implements OnInit {
 
   chipChange(item) {
     this.allRest = this.dummyRest;
-    console.log(item);
     if (item === 'Fastest Delivery') {
       this.allRest.sort((a, b) => {
         a = new Date(a.time);

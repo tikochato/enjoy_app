@@ -29,8 +29,8 @@
     </div>
 
     <ion-item>
-      <ion-label> <span *ngIf="!nearme">{{'Near Me' | translate}}</span> <span
-          *ngIf="nearme">{{'All Rest' | translate}}</span> </ion-label>
+      <ion-label> <span *ngIf="!nearme">{{'All Rest' | translate}}</span> <span
+          *ngIf="nearme">{{'Near Me' | translate}}</span> </ion-label>
       <ion-toggle slot="end" (ionChange)="nearMe()" [(ngModel)]="nearme"></ion-toggle>
     </ion-item>
 
