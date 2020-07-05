@@ -24,7 +24,7 @@ export class CitiesPage implements OnInit {
   ) {
     const lng = localStorage.getItem('language');
     if (!lng || lng === null) {
-      localStorage.setItem('language', 'en');
+      localStorage.setItem('language', 'spanish');
     }
     this.translate.use(localStorage.getItem('language'));
     this.getCities();
