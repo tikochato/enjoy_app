@@ -93,7 +93,6 @@ export class ApisService {
 
   public register(email: string, password: string, fullname: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      const selectedCity = JSON.parse(localStorage.getItem('selectedCity'));
       this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
         .then(res => {
           if (res.user) {
@@ -103,7 +102,6 @@ export class ApisService {
               fullname: fullname,
               type: 'user',
               status: 'active',
-              cityId: selectedCity.id,
               fcm_token: localStorage.getItem('fcm') ? localStorage.getItem('fcm') : ''
             });
             this.authInfo$.next(new AuthInfo(res.user.uid));

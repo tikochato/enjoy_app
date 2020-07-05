@@ -37,6 +37,7 @@ src/assets/images/.DS_Store
 # Environments
 src/environments/*
 firebase-debug.log
+.gradle/
 
 
 ### Ionic3 ###
@@ -72,6 +73,8 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+
+# VSCode
 .vscode/
 
 signing.md
