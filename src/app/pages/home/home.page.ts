@@ -76,6 +76,7 @@ export class HomePage implements OnInit {
           this.cityId = city.id;
           return this.getRest();
         }).catch(error => {
+          this.changeLocation();
           console.log(error);
         });
     }
