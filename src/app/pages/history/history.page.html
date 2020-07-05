@@ -6,6 +6,10 @@
 
 <ion-content>
   <div class="mainContent">
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
     <div *ngFor="let item of dummy">
       <ion-list>
         <ion-item>

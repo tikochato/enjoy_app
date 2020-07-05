@@ -9,6 +9,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
   templateUrl: './history.page.html',
   styleUrls: ['./history.page.scss'],
 })
+
 export class HistoryPage implements OnInit {
   haveItems: boolean = false;
   myOrders: any[] = [];
@@ -38,7 +39,7 @@ export class HistoryPage implements OnInit {
   }
 
   getMyOrders() {
-    this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
+    return this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
       console.log('my orders', data);
       if (data && data.length) {
         this.haveItems = true;
@@ -59,6 +60,7 @@ export class HistoryPage implements OnInit {
       console.log(error);
     });
   }
+
   validate() {
     this.api.checkAuth().then(async (user: any) => {
       if (user) {
@@ -71,9 +73,11 @@ export class HistoryPage implements OnInit {
       console.log(error);
     });
   }
+
   getCart() {
     this.router.navigate(['/tabs']);
   }
+
   goToHistoryDetail(orderId) {
     const navData: NavigationExtras = {
       queryParams: {
@@ -82,7 +86,14 @@ export class HistoryPage implements OnInit {
     };
     this.router.navigate(['/history-detail'], navData);
   }
+
   getDate(date) {
     return moment(date).format('llll');
+  }
+
+  doRefresh(event) {
+    this.getMyOrders().then(() => {
+      event.target.complete();
+    });
   }
 }

@@ -93,10 +93,6 @@
         <ion-icon name="star" color="light" slot="start"></ion-icon>
         {{'Rate Order' | translate}}
       </ion-button>
-      <ion-button *ngIf="status === 'created' ||status === 'ongoing' || status === 'accepted' " (click)="changeStatus()"
-        size="small" class="reject" color="danger">
-        {{'Cancel Order' | translate}}
-      </ion-button>
     </div>
   </ion-toolbar>
 </ion-footer>
