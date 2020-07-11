@@ -61,7 +61,9 @@
       <ion-row [className]="item && item.status =='close' ? 'cardClosed ion-no-padding':'card ion-no-padding'"
         *ngFor="let item of allRest">
         <ion-col size="4">
-          <div class="image_div" (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'"></div>
+          <div (click)="openMenu(item)" [style.backgroundImage]="'url('+item.cover+')'" [className]="item && item.isOpen ? 'image_div' : 'closed'">
+          </div>
+          <div class="close_div" *ngIf="!item.isOpen">{{'Closed' | translate}}</div>
         </ion-col>
         <ion-col size="6">
           <div class="desc_div" (click)="openMenu(item)">

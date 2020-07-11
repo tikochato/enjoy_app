@@ -47,7 +47,7 @@ adb logcat
 - [x] Currency Translate ($/Q)
 - [ ] Language buttons
   - [ ] Set language with ubication 
-  - [ ] Spanish language as default
+  - [x] Spanish language as default
   - [ ] Texts (ES/EN) instead of buttons
 - [ ] Select City
   - [x] Default city 
@@ -89,3 +89,9 @@ adb logcat
   - [ ] Login
     - [ ] Failed login message "login failed ..."
 - [ ] Add "Bring change for ..."
+- [ ] Add Errands
+- [x] Open/close time Restaurant
+  - [x] Show open/close
+  - [x] Block orders after close time
+- [ ] Validate distance when placing order
+- [ ] Minimum order charge

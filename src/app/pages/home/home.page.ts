@@ -280,15 +280,22 @@ export class HomePage implements OnInit {
       if (data && data.length) {
         this.allRest = [];
         data.forEach(async (element) => {
-          this.dummyRest.push(element);
+          // is open
+          const restaurant = {...element};
+          const openTime = moment(restaurant.openTime, 'HH:mm');
+          const closeTime = moment(restaurant.closeTime, 'HH:mm');
+          const now = moment(new Date(), 'HH:mm')
+          restaurant.isOpen = now.isBetween(openTime, closeTime);
+
+          this.dummyRest.push(restaurant);
 
           if (!this.cityId) {
-            this.allRest.push(element);
+            this.allRest.push(restaurant);
           }
 
-          if (element && element.city == this.cityId) {
-            element.time = moment(element.time).format('HH');
-            this.allRest.push(element);
+          if (restaurant && restaurant.city == this.cityId) {
+            restaurant.time = moment(restaurant.time).format('HH');
+            this.allRest.push(restaurant);
           }
         });
         this.dummy = [];

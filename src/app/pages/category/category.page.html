@@ -73,10 +73,12 @@
                 <ion-label class="price_lbl">{{'currencyCode' | translate}} {{item.price}}</ion-label>
               </div>
               <div class="cartBtn" *ngIf="item.quantiy <= 0">
-                <ion-label class="btns" (click)="add(i)">{{'Add' | translate}}</ion-label>
-                <!-- <ion-button (click)="add(i)" size="small" expand="block" fill="outline" shape="round">
-                  {{'Add' | translate}}
-                </ion-button> -->
+                <div *ngIf="isOpen">
+                  <ion-label class="btns" (click)="add(i)" >{{'Add' | translate}}</ion-label>
+                </div>
+                <div *ngIf="!isOpen">
+                  <ion-label class="btns" disabled>{{'Add' | translate}}</ion-label>
+                </div>
               </div>
               <div class="cartBtn2" *ngIf="item.quantiy > 0">
                 <ion-button (click)="removeQ(i)" fill="clear" size="small">

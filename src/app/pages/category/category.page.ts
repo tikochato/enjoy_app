@@ -5,6 +5,7 @@ import { ApisService } from 'src/app/services/apis.service';
 import { UtilService } from 'src/app/services/util.service';
 import { Router } from '@angular/router';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-category',
@@ -30,6 +31,9 @@ export class CategoryPage implements OnInit {
   totalItem: any = 0;
   totalPrice: any = 0;
   deliveryAddress: any = '';
+  isOpen: boolean = false;
+  open: any;
+  close: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,20 +64,28 @@ export class CategoryPage implements OnInit {
   }
 
   getVenueDetails() {
-
     // Venue Details
     this.api.getVenueDetails(this.id).then(data => {
-      console.log(data);
       if (data) {
-        this.name = data.name;
-        this.descritions = data.descritions;
-        this.cover = data.cover;
-        this.address = data.address;
-        this.rating = data.rating ? data.rating : 0;
-        this.totalRating = data.totalRating ? data.totalRating : 0;
-        this.dishPrice = data.dishPrice;
-        this.time = data.time;
-        this.cusine = data.cusine;
+        // is open
+        const restaurant = { ...data };
+        const openTime = moment(restaurant.openTime, 'HH:mm');
+        const closeTime = moment(restaurant.closeTime, 'HH:mm');
+        const now = moment(new Date(), 'HH:mm')
+        restaurant.isOpen = now.isBetween(openTime, closeTime);
+
+        this.name = restaurant.name;
+        this.descritions = restaurant.descritions;
+        this.cover = restaurant.cover;
+        this.address = restaurant.address;
+        this.rating = restaurant.rating ? restaurant.rating : 0;
+        this.totalRating = restaurant.totalRating ? restaurant.totalRating : 0;
+        this.dishPrice = restaurant.dishPrice;
+        this.time = restaurant.time;
+        this.cusine = restaurant.cusine;
+        this.open = restaurant.openTime;
+        this.close = restaurant.closeTime;
+        this.isOpen = restaurant.isOpen;
 
         const vid = localStorage.getItem('vid');
         console.log('id', vid, this.id);
