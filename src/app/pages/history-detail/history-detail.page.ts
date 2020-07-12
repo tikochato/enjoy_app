@@ -32,6 +32,7 @@ export class HistoryDetailPage implements OnInit {
   loaded: boolean;
   restFCM: any;
   driverFCM: any;
+  driverPhone: any;
   dId: any;
   constructor(
     private route: ActivatedRoute,
@@ -55,7 +56,6 @@ export class HistoryDetailPage implements OnInit {
   }
 
   getOrder() {
-
     this.api.getOrderById(this.id).then((data) => {
       this.loaded = true;
       console.log(data);
@@ -70,12 +70,14 @@ export class HistoryDetailPage implements OnInit {
         if (data && data.dId && data.dId.fullname) {
           this.dname = data.dId.fullname;
           this.driverFCM = data.dId.fcm_token;
+          this.driverPhone = data.dId.phone;
           console.log('driver FCM-------->', this.driverFCM);
           this.dId = data.dId.uid;
         }
         this.total = data.total;
         this.address = data.vid.address;
         this.restName = data.vid.name;
+        this.restPhone = data.vid.phone;
         this.deliveryAddress = data.address.address;
         this.paid = data.paid;
         console.log('this', this.orders);
@@ -149,9 +151,8 @@ export class HistoryDetailPage implements OnInit {
     //
   }
   call() {
-    if (this.restPhone) {
-      window.open('tel:' + this.restPhone);
-    }
+    console.log(this.restPhone);
+    window.open('tel:' + this.restPhone);
   }
 
   chat() {

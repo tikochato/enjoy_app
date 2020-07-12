@@ -80,8 +80,13 @@
 
     <div class="line_div"></div>
 
-    <ion-label class="red_lbl" *ngIf="status =='created' ||status =='ongoing' || status =='accepted' " (click)="call()">
-      {{'Call' | translate}} {{restName}}</ion-label>
+    <ion-label class="red_lbl" *ngIf="restPhone && (status =='created' || status =='ready' || status =='accepted')" (click)="call()">
+      {{'Call' | translate}} {{restName}}
+    </ion-label>
+
+    <ion-label class="red_lbl" *ngIf="driverPhone && (status =='ongoing' || status =='picked')" (click)="call()">
+      {{'Call Driver' | translate}}
+    </ion-label>
 
 
   </div>

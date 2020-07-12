@@ -80,6 +80,7 @@
     "Date": "Fecha",
     "Deliver to": "Entregar a",
     "Call": "Llamar",
+    "Call Driver": "Llamar al Conductor",
     "Type a message..": "Escribe un mensaje...",
     "Your Cart is Empty": "Tu carrito esta vacío",
     "Please add your favourite food": "Por favor agregua tu comida favorita",
@@ -195,7 +196,7 @@
     "accepted": "aceptada",
     "ready": "lista",
     "ongoing": "en camino",
-    "picked": "recogida",
+    "picked": "en camino",
     "delivered": "entregada",
     "rejected": "rechazada",
     "cancel": "cancelada"
