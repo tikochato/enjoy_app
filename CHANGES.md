@@ -6,3 +6,4 @@
 - Set City automatically based on localStorage
 - Refresh my orders
 - Add Call Restaurant/Driver button
+- Fix update user profile

@@ -18,8 +18,6 @@ export class EditProfilePage implements OnInit {
   name: any = '';
   profilePic: any = 'assets/imgs/user.jpg';
   phone: any = '';
-  descriptions: any = '';
-  handle: any = '';
 
   task: AngularFireUploadTask;
   ref: AngularFireStorageReference;
@@ -45,8 +43,6 @@ export class EditProfilePage implements OnInit {
         this.profilePic = data.cover;
         this.name = data.fullname;
         this.phone = data.phone;
-        this.handle = data.handle;
-        this.descriptions = data.descriptions;
       }
     }, error => {
       console.log(error);
@@ -62,8 +58,7 @@ export class EditProfilePage implements OnInit {
     this.getProfile();
   }
   update() {
-    if (this.name === '' || this.descriptions === '' || this.phone === '' || this.handle === '' ||
-      !this.profilePic || !this.name || !this.descriptions || !this.phone || !this.handle) {
+    if (this.name === '' || this.phone === '' || !this.name || !this.phone) {
       this.util.errorToast(this.util.translate('All Fields are required'));
       return false;
     }
@@ -72,16 +67,21 @@ export class EditProfilePage implements OnInit {
       this.util.errorToast(this.util.translate('Please enter name'));
       return false;
     }
-    const param = {
-      cover: this.profilePic,
+    const userBasic = {
+      fullname: this.name,
+      phone: this.phone
+    };
+
+    const userWithPic = {
       fullname: this.name,
       phone: this.phone,
-      descriptions: this.descriptions,
-      handle: this.handle
+      cover: this.profilePic
     };
-    console.log('ara', param);
+    
+    const user = this.profilePic ? userWithPic : userBasic;
+    console.log('ara', user);
     this.util.show();
-    this.api.updateProfile(localStorage.getItem('uid'), param).then((data: any) => {
+    this.api.updateProfile(localStorage.getItem('uid'), user).then((data: any) => {
       console.log(data);
       this.util.hide();
       this.util.showToast(this.util.translate('Profile updated'), 'success', 'bottom');
@@ -106,14 +106,14 @@ export class EditProfilePage implements OnInit {
         icon: 'camera',
         handler: () => {
           console.log('Delete clicked');
-          this.opemCamera('camera');
+          this.openCamera('camera');
         }
       }, {
         text: 'Gallery',
         icon: 'image',
         handler: () => {
           console.log('Share clicked');
-          this.opemCamera('gallery');
+          this.openCamera('gallery');
         }
       }, {
         text: 'Cancel',
@@ -127,7 +127,7 @@ export class EditProfilePage implements OnInit {
     await actionSheet.present();
   }
 
-  opemCamera(type) {
+  openCamera(type) {
     const options: CameraOptions = {
       quality: 100,
       targetHeight: 700,
