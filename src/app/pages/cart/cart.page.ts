@@ -70,6 +70,8 @@ export class CartPage implements OnInit {
         this.totalRating = data.totalRating;
         this.deliveryCharge = data.deliveryCharge;
         localStorage.setItem('deliveryCharge', this.deliveryCharge);
+        localStorage.setItem('restaurantLat', data.lat);
+        localStorage.setItem('restaurantLng', data.lng);
       }
     }, error => {
       console.log(error);

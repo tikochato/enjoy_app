@@ -199,5 +199,6 @@
     "picked": "en camino",
     "delivered": "entregada",
     "rejected": "rechazada",
-    "cancel": "cancelada"
+    "cancel": "cancelada",
+    "address not valid": "Actualmente no tenemos cobertura a esta dirección, lo sentimos"
 }

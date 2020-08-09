@@ -7,3 +7,4 @@
 - Refresh my orders
 - Add Call Restaurant/Driver button
 - Fix update user profile
+- Add Address validation < 10 kms

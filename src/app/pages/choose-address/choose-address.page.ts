@@ -16,6 +16,7 @@ export class ChooseAddressPage implements OnInit {
   from: any;
   selectedAddress: any;
   dummy = Array(10);
+  isValidAddress: boolean;
   constructor(
     private router: Router,
     private api: ApisService,
@@ -28,6 +29,7 @@ export class ChooseAddressPage implements OnInit {
   }
 
   ngOnInit() {
+    this.isValidAddress = false;
     this.route.queryParams.subscribe(data => {
       console.log(data);
       if (data && data.from) {
@@ -53,6 +55,7 @@ export class ChooseAddressPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.isValidAddress = false;
     this.api.checkAuth().then((data: any) => {
       console.log(data);
       if (data) {
@@ -64,6 +67,22 @@ export class ChooseAddressPage implements OnInit {
 
   addNew() {
     this.router.navigate(['add-new-address']);
+  }
+
+  checkAddress(addressId){
+    if(addressId){
+      const restaurantLat = localStorage.getItem('restaurantLat');
+      const restaurantLng = localStorage.getItem('restaurantLng');
+      const myAddress = this.myaddress.filter(x => x.id === addressId);
+      const distance = this.util.distanceInKmBetweenEarthCoordinates(restaurantLat, restaurantLng, myAddress[0].lat, myAddress[0].lng);
+        console.log('distance', distance);
+        // Distance
+        if (distance < 10) {
+          this.isValidAddress = true;
+        }else{
+          this.util.showErrorAlert(this.util.translate('address not valid'));
+        }
+    }
   }
 
   selectAddress() {

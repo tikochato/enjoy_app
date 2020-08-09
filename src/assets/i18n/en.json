@@ -199,5 +199,6 @@
     "picked": "picked",
     "delivered": "delivered",
     "rejected": "rejected",
-    "cancel": "cancel"
+    "cancel": "cancel",
+    "address not valid": "This is not a valid address, please select another"
 }
