@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApisService } from 'src/app/services/apis.service';
 import { UtilService } from 'src/app/services/util.service';
 import { NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { AngularFireUploadTask, AngularFireStorageReference } from 'angularfire2/storage';
@@ -18,6 +18,7 @@ export class EditProfilePage implements OnInit {
   name: any = '';
   profilePic: any = 'assets/imgs/user.jpg';
   phone: any = '';
+  from: any;
 
   task: AngularFireUploadTask;
   ref: AngularFireStorageReference;
@@ -28,6 +29,8 @@ export class EditProfilePage implements OnInit {
   constructor(
     private api: ApisService,
     private util: UtilService,
+    private router: Router,
+    private route: ActivatedRoute,
     private navCtrl: NavController,
     private actionSheetController: ActionSheetController,
     private camera: Camera,
@@ -56,6 +59,12 @@ export class EditProfilePage implements OnInit {
   }
   ngOnInit() {
     this.getProfile();
+    this.route.queryParams.subscribe(data => {
+      console.log(data);
+      if (data && data.from) {
+        this.from = data.from;
+      }
+    });
   }
   update() {
     if (this.name === '' || this.phone === '' || !this.name || !this.phone) {
@@ -86,6 +95,9 @@ export class EditProfilePage implements OnInit {
       this.util.hide();
       this.util.showToast(this.util.translate('Profile updated'), 'success', 'bottom');
       this.util.publishProfile('update');
+      if(this.from === 'choose-address'){
+        this.router.navigate(['/choose-address']);
+      }
       this.navCtrl.back();
     }, error => {
       console.log(error);

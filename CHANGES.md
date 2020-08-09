@@ -8,3 +8,4 @@
 - Add Call Restaurant/Driver button
 - Fix update user profile
 - Add Address validation < 10 kms
+- Check user phone exist before placing a new order

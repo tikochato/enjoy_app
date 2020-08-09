@@ -54,12 +54,38 @@ export class ChooseAddressPage implements OnInit {
     });
   }
 
+  getProfile() {
+    this.util.show();
+    this.api.getProfile(localStorage.getItem('uid')).then((data: any) => {
+      console.log(data);
+      this.util.hide();
+      if (!data || !data.phone) {
+        this.util.errorToast(this.util.translate('All Fields are required'));
+        const navData: NavigationExtras = {
+          queryParams: {
+            from: 'choose-address'
+          }
+        };
+        this.router.navigate(['/edit-profile'], navData);
+      }
+    }, error => {
+      console.log(error);
+      this.util.hide();
+      this.util.errorToast(this.util.translate('Something went wrong'));
+    }).catch(error => {
+      console.log(error);
+      this.util.hide();
+      this.util.errorToast(this.util.translate('Something went wrong'));
+    });
+  }
+
   ionViewWillEnter() {
     this.isValidAddress = false;
     this.api.checkAuth().then((data: any) => {
       console.log(data);
       if (data) {
         this.id = data.uid;
+        this.getProfile();
         this.getAddress();
       }
     });
