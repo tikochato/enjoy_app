@@ -69,19 +69,29 @@ export class ChooseAddressPage implements OnInit {
     this.router.navigate(['add-new-address']);
   }
 
-  checkAddress(addressId){
-    if(addressId){
+  checkAddress(addressId) {
+    if (addressId) {
       const restaurantLat = localStorage.getItem('restaurantLat');
       const restaurantLng = localStorage.getItem('restaurantLng');
       const myAddress = this.myaddress.filter(x => x.id === addressId);
       const distance = this.util.distanceInKmBetweenEarthCoordinates(restaurantLat, restaurantLng, myAddress[0].lat, myAddress[0].lng);
-        console.log('distance', distance);
-        // Distance
-        if (distance < 10) {
-          this.isValidAddress = true;
-        }else{
-          this.util.showErrorAlert(this.util.translate('address not valid'));
-        }
+      console.log('distance', distance);
+      // Distance
+      if (distance < 10) {
+        this.isValidAddress = true;
+      } else {
+        Swal.fire({
+          title: this.util.translate('out of coverage area'),
+          text: this.util.translate('address not valid'),
+          icon: 'error',
+          showCancelButton: false,
+          backdrop: false,
+          background: 'white',
+          confirmButtonText: this.util.translate('Yes')
+        }).then((data) => {
+          this.isValidAddress = false;
+        });
+      }
     }
   }
 

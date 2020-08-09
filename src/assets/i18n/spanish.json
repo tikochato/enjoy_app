@@ -200,5 +200,6 @@
     "delivered": "entregada",
     "rejected": "rechazada",
     "cancel": "cancelada",
-    "address not valid": "Actualmente no tenemos cobertura a esta dirección, lo sentimos"
+    "out of coverage area": "Fuera del Área de Cobertura",
+    "address not valid": "Lo sentimos, esta dirección esta fuera del área de cobertura del restaurante"
 }
