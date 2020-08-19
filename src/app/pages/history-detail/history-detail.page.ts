@@ -153,9 +153,9 @@ export class HistoryDetailPage implements OnInit {
     this.router.navigate(['/tracker'], navData);
     //
   }
-  call() {
-    console.log(this.restPhone);
-    window.open('tel:' + this.restPhone);
+  call(phone) {
+    console.log(phone);
+    window.open('tel:' + phone);
   }
 
   chat() {
