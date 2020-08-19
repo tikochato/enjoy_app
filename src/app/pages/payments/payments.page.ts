@@ -19,6 +19,9 @@ export class PaymentsPage implements OnInit {
   totalItem: any = 0;
   serviceTax: any = 0;
   deliveryCharge: any = 0;
+  minimumPurchase: any = 0;
+  minimumPurchaseCharge: any = 0;
+  isUnderMinimum: boolean;
   grandTotal: any = 0;
   deliveryAddress: any;
   venueFCM: any = '';
@@ -40,6 +43,7 @@ export class PaymentsPage implements OnInit {
     console.log(recheck);
     const add = JSON.parse(localStorage.getItem('deliveryAddress'));
     this.vid = localStorage.getItem('vid');
+    this.isUnderMinimum = false;
     this.api.getVenueUser(this.vid).then((data) => {
       console.log('venue', data);
       if (data && data.fcm_token) {
@@ -60,6 +64,8 @@ export class PaymentsPage implements OnInit {
     console.log('COUPON===================', this.coupon);
     console.log('ADDRESS===================', this.deliveryAddress);
     this.deliveryCharge = localStorage.getItem('deliveryCharge');
+    this.minimumPurchase = localStorage.getItem('minimumPurchase');
+    this.minimumPurchaseCharge = localStorage.getItem('minimumPurchaseCharge');
     this.calculate(recheck);
   }
 
@@ -77,6 +83,10 @@ export class PaymentsPage implements OnInit {
     console.log('total item', this.totalItem);
     console.log('=====>', this.totalPrice);
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+    this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+    if (this.isUnderMinimum) {
+      this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+    }
     this.grandTotal = this.grandTotal.toFixed(2);
     console.log('grand totla', this.grandTotal);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
@@ -92,6 +102,10 @@ export class PaymentsPage implements OnInit {
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+        if (this.isUnderMinimum) {
+          this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+        }
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
         console.log('$');
@@ -103,6 +117,10 @@ export class PaymentsPage implements OnInit {
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+        if (this.isUnderMinimum) {
+          this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+        }
         this.grandTotal = this.grandTotal.toFixed(2);
       }
     } else {
@@ -231,7 +249,10 @@ export class PaymentsPage implements OnInit {
         await localStorage.removeItem('vid');
         await localStorage.removeItem('totalItem');
         const deliveryCharge = localStorage.getItem('deliveryCharge');
+        const minimumPurchaseCharge = localStorage.getItem('minimumPurchaseCharge');
         await localStorage.removeItem('deliveryCharge');
+        await localStorage.removeItem('minimumPurchase');
+        await localStorage.removeItem('minimumPurchaseCharge');
         const uid = localStorage.getItem('uid');
         const lng = localStorage.getItem('language');
         const selectedCity = localStorage.getItem('selectedCity');
@@ -251,6 +272,7 @@ export class PaymentsPage implements OnInit {
           grandTotal: this.grandTotal,
           serviceTax: this.serviceTax,
           deliveryCharge: deliveryCharge,
+          minimumPurchaseCharge: this.isUnderMinimum ? minimumPurchaseCharge : 0,
           status: 'created',
           restId: this.vid,
           // driverId: this.drivers[0].uid,
@@ -344,6 +366,8 @@ export class PaymentsPage implements OnInit {
         await localStorage.removeItem('vid');
         await localStorage.removeItem('totalItem');
         await localStorage.removeItem('deliveryCharge');
+        await localStorage.removeItem('minimumPurchase');
+        await localStorage.removeItem('minimumPurchaseCharge');
         const uid = localStorage.getItem('uid');
         const lng = localStorage.getItem('language');
         const selectedCity = localStorage.getItem('selectedCity');
@@ -363,6 +387,7 @@ export class PaymentsPage implements OnInit {
           grandTotal: this.grandTotal,
           serviceTax: this.serviceTax,
           deliveryCharge: this.deliveryCharge,
+          minimumPurchaseCharge: this.isUnderMinimum ? this.minimumPurchaseCharge : 0,
           status: 'created',
           restId: this.vid,
           paid: 'paypal',

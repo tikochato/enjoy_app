@@ -21,7 +21,8 @@
   </div>
   <div class="main_content_div" *ngIf="loaded">
     <ion-label class="header_lbl">{{'Order Summary' | translate}}</ion-label>
-    <ion-label class="res_location">{{'This order with' | translate}} {{restName}} {{'was' | translate}} {{status | translate}}
+    <ion-label class="res_location">{{'This order with' | translate}} {{restName}} {{'was' | translate}}
+      {{status | translate}}
     </ion-label>
 
     <div class="line_div"></div>
@@ -60,6 +61,10 @@
     <ion-label style="margin-top: 5px; font-size: 14px">{{'Delivery Charge' | translate}} <span
         class="prise_lbl">{{'currencyCode' | translate}} {{deliveryCharge}}</span>
     </ion-label>
+    <ion-label style="margin-top: 5px; font-size: 14px" *ngIf="minimumPurchaseCharge">
+      {{'Under Minimum Charges' | translate}}
+      <span class="prise_lbl">{{'currencyCode' | translate}} {{minimumPurchaseCharge}}</span>
+    </ion-label>
     <div class="line_div"></div>
     <ion-label style="margin-top: 5px; font-weight: 600px;">{{'Grand Total' | translate}} <span
         class="prise_lbl">{{'currencyCode' | translate}} {{grandTotal}}</span>
@@ -80,7 +85,8 @@
 
     <div class="line_div"></div>
 
-    <ion-label class="red_lbl" *ngIf="restPhone && (status =='created' || status =='ready' || status =='accepted')" (click)="call()">
+    <ion-label class="red_lbl" *ngIf="restPhone && (status =='created' || status =='ready' || status =='accepted')"
+      (click)="call()">
       {{'Call' | translate}} {{restName}}
     </ion-label>
 

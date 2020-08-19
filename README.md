@@ -64,9 +64,9 @@ adb logcat
 - [x] Orders Status / Orders Status Detaills
   - [x] created
   - [x] accepted
-  - [ ] ready
+  - [x] ready
   - [x] ongoing
-  - [ ] picked
+  - [x] picked
   - [x] delivered
   - [x] rejected
   - [x] cancel
@@ -93,5 +93,5 @@ adb logcat
 - [x] Open/close time Restaurant
   - [x] Show open/close
   - [x] Block orders after close time
-- [ ] Validate distance when placing order
-- [ ] Minimum order charge
+- [x] Validate distance when placing order
+- [x] Minimum order charge

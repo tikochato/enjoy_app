@@ -74,7 +74,6 @@ export class HomePage implements OnInit {
         .then(city => {
           this.cityName = city.name;
           this.cityId = city.id;
-          return this.getRest();
         }).catch(error => {
           this.changeLocation();
           console.log(error);
@@ -98,6 +97,7 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     this.getLocation();
     this.getProfile();
+    this.getRest();
   }
 
   // getAddressMy() {

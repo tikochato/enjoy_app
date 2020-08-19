@@ -60,6 +60,10 @@
           <ion-label class="headerTitle">{{'Delivery Charges' | translate}}</ion-label>
           <ion-label class="price">{{'currencyCode' | translate}} {{deliveryCharge}}</ion-label>
         </div>
+        <div class="singleRow" *ngIf="isUnderMinimum">
+          <ion-label class="headerTitle">{{'Under Minimum Charges' | translate}} ({{'currencyCode' | translate}} {{minimumPurchase}})</ion-label>
+          <ion-label class="price">{{'currencyCode' | translate}} {{minimumPurchaseCharge}}</ion-label>
+        </div>
         <div class="singleRow" *ngIf="coupon">
           <ion-label class="headerTitle">{{'Dicount' | translate}}</ion-label>
           <ion-label class="price">{{'currencyCode' | translate}} {{dicount}}</ion-label>

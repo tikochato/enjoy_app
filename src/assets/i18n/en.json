@@ -201,5 +201,6 @@
     "rejected": "rejected",
     "cancel": "cancel",
     "out of coverage area": "Out of Coverage Area",
-    "address not valid": "This is not a valid address, please select another"
+    "address not valid": "This is not a valid address, please select another",
+    "Under Minimum Charges": "Charges for under minimum"
 }

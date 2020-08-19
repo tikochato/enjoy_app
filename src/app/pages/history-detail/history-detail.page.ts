@@ -16,6 +16,8 @@ export class HistoryDetailPage implements OnInit {
   orders: any[] = [];
   serviceTax: any;
   deliveryCharge: any;
+  minimumPurchaseCharge: any = 0;
+  isUnderMinimum: boolean = false;
   status: any;
   time: any;
   total: any;
@@ -65,6 +67,7 @@ export class HistoryDetailPage implements OnInit {
         this.orders = JSON.parse(data.order);
         this.serviceTax = data.serviceTax;
         this.deliveryCharge = data.deliveryCharge;
+        this.minimumPurchaseCharge = data.minimumPurchaseCharge || 0;
         this.status = data.status;
         this.time = data.time;
         if (data && data.dId && data.dId.fullname) {

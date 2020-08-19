@@ -21,6 +21,9 @@ export class CartPage implements OnInit {
   totalItem: any = 0;
   serviceTax: any = 0;
   deliveryCharge: any = 0;
+  minimumPurchase: any = 0;
+  minimumPurchaseCharge: any = 0;
+  isUnderMinimum: boolean;
   grandTotal: any = 0;
   deliveryAddress: any = '';
   totalRating: any = 0;
@@ -69,6 +72,10 @@ export class CartPage implements OnInit {
         this.time = data.time;
         this.totalRating = data.totalRating;
         this.deliveryCharge = data.deliveryCharge;
+        this.minimumPurchase = data.minimumPurchase;
+        this.minimumPurchaseCharge = data.minimumPurchaseCharge;
+        localStorage.setItem('minimumPurchase', this.minimumPurchase);
+        localStorage.setItem('minimumPurchaseCharge', this.minimumPurchaseCharge);
         localStorage.setItem('deliveryCharge', this.deliveryCharge);
         localStorage.setItem('restaurantLat', data.lat);
         localStorage.setItem('restaurantLng', data.lng);
@@ -118,6 +125,7 @@ export class CartPage implements OnInit {
 
   ionViewWillEnter() {
     this.validate();
+    this.isUnderMinimum = false;
   }
 
   getCart() {
@@ -154,6 +162,10 @@ export class CartPage implements OnInit {
     console.log('total item', this.totalItem);
     console.log('=====>', this.totalPrice);
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+    this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+    if (this.isUnderMinimum){
+      this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+    }
     this.grandTotal = this.grandTotal.toFixed(2);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === '%') {
@@ -168,6 +180,10 @@ export class CartPage implements OnInit {
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+        if (this.isUnderMinimum){
+          this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+        }
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
         console.log('$');
@@ -179,6 +195,10 @@ export class CartPage implements OnInit {
         console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
+        this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
+        if (this.isUnderMinimum){
+          this.grandTotal += parseFloat(this.minimumPurchaseCharge);
+        }
         this.grandTotal = this.grandTotal.toFixed(2);
       }
     } else {

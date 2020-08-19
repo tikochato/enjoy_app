@@ -201,5 +201,6 @@
     "rejected": "rechazada",
     "cancel": "cancelada",
     "out of coverage area": "Fuera del Área de Cobertura",
-    "address not valid": "Lo sentimos, esta dirección esta fuera del área de cobertura del restaurante"
+    "address not valid": "Lo sentimos, esta dirección esta fuera del área de cobertura del restaurante",
+    "Under Minimum Charges": "Cargos por compra menor al mínimo"
 }
