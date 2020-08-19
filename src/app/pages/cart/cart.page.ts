@@ -39,10 +39,7 @@ export class CartPage implements OnInit {
   ) {
     this.util.getCouponObservable().subscribe(data => {
       if (data) {
-        console.log(data);
         this.coupon = data;
-        console.log('coupon', this.coupon);
-        console.log(this.totalPrice);
         localStorage.setItem('coupon', JSON.stringify(data));
         this.calculate();
       }
@@ -63,7 +60,6 @@ export class CartPage implements OnInit {
   getVenueDetails() {
     // Venue Details
     return this.api.getVenueDetails(this.vid).then(data => {
-      console.log(data);
       if (data) {
         this.name = data.name;
         this.descritions = data.descritions;
@@ -93,7 +89,6 @@ export class CartPage implements OnInit {
     this.api.checkAuth().then(async (user) => {
       if (user) {
         const id = await localStorage.getItem('vid');
-        console.log('id', id);
         if (id) {
           this.vid = id;
           await this.getVenueDetails();
@@ -101,8 +96,6 @@ export class CartPage implements OnInit {
           if (foods) {
             this.foods = await JSON.parse(foods);
             let recheck = await this.foods.filter(x => x.quantiy > 0);
-            console.log('vid', this.vid);
-            console.log('foods', this.foods);
             if (this.vid && this.foods && recheck.length > 0) {
               this.haveItems = true;
               this.calculate();
@@ -149,9 +142,7 @@ export class CartPage implements OnInit {
   }
 
   async calculate() {
-    console.log(this.foods);
     let item = this.foods.filter(x => x.quantiy > 0);
-    console.log(item);
     this.totalPrice = 0;
     this.totalItem = 0;
     await item.forEach(element => {
@@ -159,8 +150,6 @@ export class CartPage implements OnInit {
       this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
     });
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-    console.log('total item', this.totalItem);
-    console.log('=====>', this.totalPrice);
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
     this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
     if (this.isUnderMinimum){
@@ -169,15 +158,12 @@ export class CartPage implements OnInit {
     this.grandTotal = this.grandTotal.toFixed(2);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === '%') {
-        console.log('per');
         function percentage(totalValue, partialValue) {
           return (100 * partialValue) / totalValue;
         }
         const totalPrice = percentage(parseFloat(this.totalPrice).toFixed(2), this.coupon.discout);
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = totalPrice.toFixed(2);
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
@@ -186,13 +172,9 @@ export class CartPage implements OnInit {
         }
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
-        console.log('$');
-        console.log('per');
         const totalPrice = parseFloat(this.totalPrice) - this.coupon.discout;
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = this.coupon.discout;
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
@@ -202,11 +184,9 @@ export class CartPage implements OnInit {
         this.grandTotal = this.grandTotal.toFixed(2);
       }
     } else {
-      console.log('not satisfied');
       this.coupon = null;
       localStorage.removeItem('coupon');
     }
-    console.log('grand totla', this.grandTotal);
     if (this.totalItem === 0) {
       const lng = localStorage.getItem('language');
       const selectedCity = localStorage.getItem('selectedCity');

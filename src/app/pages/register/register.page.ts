@@ -25,7 +25,6 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
   onLogin(form: NgForm) {
-    console.log('form', form);
     this.submitted = true;
 
     if (form.valid) {
@@ -43,10 +42,8 @@ export class RegisterPage implements OnInit {
         this.util.showToast(this.util.translate('Password does not match'), 'danger', 'bottom');
         return false;
       }
-      console.log('login');
       this.isLogin = true;
       this.api.register(this.login.email, this.login.password, this.login.full_name).then((userData) => {
-        console.log(userData);
         localStorage.setItem('uid', userData.uid);
         localStorage.setItem('help', userData.uid);
         this.isLogin = false;

@@ -123,7 +123,6 @@ export class HomePage implements OnInit {
       } else {
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
           if (resp) {
-            console.log('resp', resp);
             this.lat = resp.coords.latitude;
             this.lng = resp.coords.longitude;
             // this.getAddress(this.lat, this.lng);
@@ -141,7 +140,6 @@ export class HomePage implements OnInit {
       if (data) {
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
           if (resp) {
-            console.log('resp', resp);
             this.lat = resp.coords.latitude;
             this.lng = resp.coords.longitude;
             // this.getAddress(this.lat, this.lng);
@@ -153,7 +151,6 @@ export class HomePage implements OnInit {
         this.diagnostic.switchToLocationSettings();
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: false }).then((resp) => {
           if (resp) {
-            console.log('ress,', resp);
             this.lat = resp.coords.latitude;
             this.lng = resp.coords.longitude;
             // this.getAddress(this.lat, this.lng);
@@ -217,26 +214,6 @@ export class HomePage implements OnInit {
     //   return await modal.present();
     await this.router.navigate(['choose-address']);
   }
-
-  // nearMe() {
-  //   console.log('nearMe');
-  //   this.dummy = Array(50);
-  //   this.allRest = [];
-  //   if (this.nearme) {
-  //     this.dummyRest.forEach(async (element) => {
-  //       const distance = await this.distanceInKmBetweenEarthCoordinates(this.lat, this.lng, element.lat, element.lng);
-  //       console.log('distance', distance);
-  //       // Distance
-  //       if (distance < 10) {
-  //         this.allRest.push(element);
-  //       }
-  //     });
-  //     this.dummy = [];
-  //   } else {
-  //     this.allRest = this.dummyRest;
-  //     this.dummy = [];
-  //   }
-  // }
 
   nearMe() {
     this.dummy = Array(50);

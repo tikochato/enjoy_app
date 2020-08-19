@@ -36,7 +36,6 @@ export class StripePaymentsPage implements OnInit {
   getCards() {
     this.api.httpGet('https://api.stripe.com/v1/customers/' + this.cid + '/sources?object=card').subscribe((cards: any) => {
       this.util.hide();
-      console.log(cards);
       if (cards && cards.data) {
         this.cards = cards.data;
         this.card_token = this.cards[0].id;
@@ -55,9 +54,7 @@ export class StripePaymentsPage implements OnInit {
 
   getProfile() {
     this.util.show();
-    console.log('loca', localStorage.getItem('uid'));
     this.api.getProfile(localStorage.getItem('uid')).then((data: any) => {
-      console.log('data', data);
       if (data && data.cid) {
         this.cid = data.cid;
         this.getCards();
@@ -79,11 +76,9 @@ export class StripePaymentsPage implements OnInit {
   async ngOnInit() {
     const foods = await JSON.parse(localStorage.getItem('foods'));
     let recheck = await foods.filter(x => x.quantiy > 0);
-    console.log(recheck);
     const add = JSON.parse(localStorage.getItem('deliveryAddress'));
     this.vid = localStorage.getItem('vid');
     this.api.getVenueUser(this.vid).then((data) => {
-      console.log('venue', data);
       if (data && data.fcm_token) {
         this.venueFCM = data.fcm_token;
       }
@@ -103,9 +98,7 @@ export class StripePaymentsPage implements OnInit {
   }
 
   async calculate(foods) {
-    console.log(foods);
     let item = foods.filter(x => x.quantiy > 0);
-    console.log(item);
     this.totalPrice = 0;
     this.totalItem = 0;
     await item.forEach(element => {
@@ -113,47 +106,34 @@ export class StripePaymentsPage implements OnInit {
       this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
     });
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-    console.log('total item', this.totalItem);
-    console.log('=====>', this.totalPrice);
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
     this.grandTotal = this.grandTotal.toFixed(2);
-    console.log('grand totla', this.grandTotal);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === '%') {
-        console.log('per');
         function percentage(totalValue, partialValue) {
           return (100 * partialValue) / totalValue;
         }
         const totalPrice = percentage(parseFloat(this.totalPrice).toFixed(2), this.coupon.discout);
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = totalPrice.toFixed(2);
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
-        console.log('$');
-        console.log('per');
         const totalPrice = parseFloat(this.totalPrice) - this.coupon.discout;
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = this.coupon.discout;
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.grandTotal = this.grandTotal.toFixed(2);
       }
     } else {
-      console.log('not satisfied');
       this.coupon = null;
       localStorage.removeItem('coupon');
     }
   }
 
   payment() {
-    console.log('place order');
-
     swal.fire({
       title: this.util.translate('Are you sure?'),
       text: this.util.translate('Orders once placed cannot be cancelled and are non-refundable'),
@@ -164,20 +144,16 @@ export class StripePaymentsPage implements OnInit {
       backdrop: false,
       background: 'white'
     }).then((data) => {
-      console.log(data);
       if (data && data.value) {
-        console.log('go to procesed');
         const options = {
           amount: parseInt(this.grandTotal) * 100,
           currency: 'inr',
           customer: this.cid,
           card: this.card_token,
         };
-        console.log('options', options);
         const url = 'https://api.stripe.com/v1/charges';
         this.util.show();
         this.api.httpPost(url, options).subscribe((data: any) => {
-          console.log('------------------------->', data);
           this.payKey = data.id;
           this.util.hide();
           this.util.showToast(this.util.translate('Payment Success'), 'success', 'bottom');
@@ -201,7 +177,6 @@ export class StripePaymentsPage implements OnInit {
   }
 
   distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
-    console.log(lat1, lon1, lat2, lon2);
     const earthRadiusKm = 6371;
     const dLat = this.degreesToRadians(lat2 - lat1);
     const dLon = this.degreesToRadians(lon2 - lon1);
@@ -215,7 +190,6 @@ export class StripePaymentsPage implements OnInit {
   async createOrder() {
     this.util.show('creating order');
     this.api.checkAuth().then(async (data: any) => {
-      console.log(data);
       if (data) {
         // not from saved address then create new and save
         if (!this.deliveryAddress.id || this.deliveryAddress.id === '') {
@@ -240,7 +214,6 @@ export class StripePaymentsPage implements OnInit {
         }
         const foods = await JSON.parse(localStorage.getItem('foods'));
         let recheck = await foods.filter(x => x.quantiy > 0);
-        console.log('ordered food', recheck);
         let id = this.util.makeid(10);
         await localStorage.removeItem('foods');
         await localStorage.removeItem('vid');
@@ -273,7 +246,6 @@ export class StripePaymentsPage implements OnInit {
           coupon: this.coupon ? JSON.stringify(this.coupon) : 'NA',
           dicount: this.coupon ? this.dicount : 0
         };
-        console.log('sent', param);
         this.api.createOrder(id, param).then(async (data) => {
           this.util.hide();
           if (this.venueFCM && this.venueFCM !== '') {
@@ -291,7 +263,6 @@ export class StripePaymentsPage implements OnInit {
             backdrop: false,
           });
           this.navCtrl.navigateRoot(['tabs/tab2']);
-          console.log(data);
         }, error => {
           this.util.hide();
           this.util.errorToast(this.util.translate('Something went wrong'));

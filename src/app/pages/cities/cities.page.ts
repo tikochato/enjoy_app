@@ -33,7 +33,6 @@ export class CitiesPage implements OnInit {
   getCities() {
     const selectedCityId = localStorage.getItem('selectedCity');
     this.api.getCities().then((data) => {
-      console.log(data);
       this.dummy = [];
       if (data && data.length) {
         data.forEach(element => {

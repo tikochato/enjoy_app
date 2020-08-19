@@ -40,7 +40,6 @@ export class HistoryPage implements OnInit {
 
   getMyOrders() {
     return this.api.getMyOrders(localStorage.getItem('uid')).then((data: any) => {
-      console.log('my orders', data);
       if (data && data.length) {
         this.haveItems = true;
         data.forEach(element => {
@@ -51,7 +50,6 @@ export class HistoryPage implements OnInit {
         this.myOrders.forEach(element => {
           element.order = JSON.parse(element.order);
         });
-        console.log('my order==>', this.myOrders);
       }
       this.dummy = [];
     }, error => {

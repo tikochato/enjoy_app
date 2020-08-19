@@ -14,7 +14,6 @@ export class SelectDriversPage implements OnInit {
     private modalController: ModalController
   ) {
     this.drivers = this.navParam.get('item');
-    console.log('drivers->', this.drivers);
     if (this.drivers.length && this.drivers.length > 0) {
       this.selectedDriver = this.drivers[0].id;
     }
@@ -23,9 +22,7 @@ export class SelectDriversPage implements OnInit {
   ngOnInit() {
   }
   select() {
-    console.log(this.selectedDriver);
     let driver = this.drivers.filter(x => x.id === this.selectedDriver);
-    console.log(driver);
     this.modalController.dismiss(driver, 'selected');
   }
   close() {

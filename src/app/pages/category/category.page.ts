@@ -47,7 +47,6 @@ export class CategoryPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getVenueDetails();
@@ -88,7 +87,6 @@ export class CategoryPage implements OnInit {
         this.isOpen = restaurant.isOpen;
 
         const vid = localStorage.getItem('vid');
-        console.log('id', vid, this.id);
         if (vid && vid !== this.id) {
           this.getCates();
           this.getFoods();
@@ -118,8 +116,6 @@ export class CategoryPage implements OnInit {
 
   getCates() {
     this.api.getVenueCategories(this.id).then(cate => {
-      console.log(cate);
-
       if (cate) {
         this.categories = cate;
       }
@@ -136,7 +132,6 @@ export class CategoryPage implements OnInit {
 
   getFoods() {
     this.api.getFoods(this.id).then(foods => {
-      console.log(foods);
       if (foods) {
         // if()
         this.dummy = [];
@@ -218,7 +213,6 @@ export class CategoryPage implements OnInit {
             }
           }
         });
-        console.log('myfoods', this.foods);
         if (!this.foods.length || this.foods.length === 0) {
           this.util.errorToast(this.util.translate('No Foods found'));
           this.navCtrl.back();
@@ -251,7 +245,6 @@ export class CategoryPage implements OnInit {
           this.presentAlertConfirm();
           return false;
         }
-        console.log(this.foods[index]);
         this.foods[index].quantiy = 1;
         this.calculate();
       } else {
@@ -266,10 +259,7 @@ export class CategoryPage implements OnInit {
 
   calculate() {
     this.dummy = [];
-    console.log('khaliiii', this.dummy);
-    console.log(this.foods);
     let item = this.foods.filter(x => x.quantiy > 0);
-    console.log(item);
     this.totalPrice = 0;
     this.totalItem = 0;
     item.forEach(element => {
@@ -277,7 +267,6 @@ export class CategoryPage implements OnInit {
       this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
     });
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-    console.log('total item', this.totalItem);
     if (this.totalItem === 0) {
       this.totalItem = 0;
       this.totalPrice = 0;
@@ -286,8 +275,6 @@ export class CategoryPage implements OnInit {
 
   async setData() {
     const vid = localStorage.getItem('vid');
-    console.log('leaving the planet', vid, this.id);
-    console.log('total item', this.totalItem);
 
     if (vid && vid === this.id && this.totalPrice > 0) {
       localStorage.setItem('vid', this.id);
@@ -340,7 +327,6 @@ export class CategoryPage implements OnInit {
         }, {
           text: this.util.translate('Clear cart'),
           handler: () => {
-            console.log('Confirm Okay');
             localStorage.removeItem('vid');
             localStorage.removeItem('categories');
             localStorage.removeItem('dummyItem');
@@ -356,7 +342,6 @@ export class CategoryPage implements OnInit {
   }
 
   viewCart() {
-    console.log('viewCart');
     this.setData();
     this.navCtrl.navigateRoot(['tabs/tab3']);
   }
@@ -372,12 +357,10 @@ export class CategoryPage implements OnInit {
       mode: 'ios',
     });
     popover.onDidDismiss().then(data => {
-      console.log(data.data);
       if (data && data.data) {
         const yOffset = document.getElementById(data.data.id).offsetTop;
         const yHOffset = document.getElementById(data.data.id).offsetHeight;
 
-        console.log(yOffset + ' : ' + yHOffset);
         this.content.scrollToPoint(0, yOffset, 1000);
       }
     });

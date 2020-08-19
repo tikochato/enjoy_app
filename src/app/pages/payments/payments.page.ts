@@ -40,12 +40,10 @@ export class PaymentsPage implements OnInit {
   async ngOnInit() {
     const foods = await JSON.parse(localStorage.getItem('foods'));
     let recheck = await foods.filter(x => x.quantiy > 0);
-    console.log(recheck);
     const add = JSON.parse(localStorage.getItem('deliveryAddress'));
     this.vid = localStorage.getItem('vid');
     this.isUnderMinimum = false;
     this.api.getVenueUser(this.vid).then((data) => {
-      console.log('venue', data);
       if (data && data.fcm_token) {
         this.venueFCM = data.fcm_token;
       }
@@ -55,14 +53,11 @@ export class PaymentsPage implements OnInit {
     }).catch(error => {
       this.util.errorToast(this.util.translate('Something went wrong'));
       this.router.navigate(['tabs']);
-      console.log(error);
     });
     if (add && add.address) {
       this.deliveryAddress = add;
     }
     this.coupon = JSON.parse(localStorage.getItem('coupon'));
-    console.log('COUPON===================', this.coupon);
-    console.log('ADDRESS===================', this.deliveryAddress);
     this.deliveryCharge = localStorage.getItem('deliveryCharge');
     this.minimumPurchase = localStorage.getItem('minimumPurchase');
     this.minimumPurchaseCharge = localStorage.getItem('minimumPurchaseCharge');
@@ -70,9 +65,7 @@ export class PaymentsPage implements OnInit {
   }
 
   async calculate(foods) {
-    console.log(foods);
     let item = foods.filter(x => x.quantiy > 0);
-    console.log(item);
     this.totalPrice = 0;
     this.totalItem = 0;
     await item.forEach(element => {
@@ -80,26 +73,20 @@ export class PaymentsPage implements OnInit {
       this.totalPrice = this.totalPrice + (parseFloat(element.price) * parseInt(element.quantiy));
     });
     this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
-    console.log('total item', this.totalItem);
-    console.log('=====>', this.totalPrice);
     this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
     this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
     if (this.isUnderMinimum) {
       this.grandTotal += parseFloat(this.minimumPurchaseCharge);
     }
     this.grandTotal = this.grandTotal.toFixed(2);
-    console.log('grand totla', this.grandTotal);
     if (this.coupon && this.coupon.code && this.totalPrice >= this.coupon.min) {
       if (this.coupon.type === '%') {
-        console.log('per');
         function percentage(totalValue, partialValue) {
           return (100 * partialValue) / totalValue;
         }
         const totalPrice = percentage(parseFloat(this.totalPrice).toFixed(2), this.coupon.discout);
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = totalPrice.toFixed(2);
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
@@ -108,13 +95,9 @@ export class PaymentsPage implements OnInit {
         }
         this.grandTotal = this.grandTotal.toFixed(2);
       } else {
-        console.log('$');
-        console.log('per');
         const totalPrice = parseFloat(this.totalPrice) - this.coupon.discout;
-        console.log('============>>>>>>>>>>>>>>>', totalPrice);
         this.dicount = this.coupon.discout;
         this.totalPrice = parseFloat(this.totalPrice) - totalPrice;
-        console.log('------------>>>>', this.totalPrice);
         this.totalPrice = parseFloat(this.totalPrice).toFixed(2);
         this.grandTotal = parseFloat(this.totalPrice) + parseFloat(this.serviceTax) + parseFloat(this.deliveryCharge);
         this.isUnderMinimum = parseFloat(this.grandTotal) < parseFloat(this.minimumPurchase);
@@ -124,14 +107,12 @@ export class PaymentsPage implements OnInit {
         this.grandTotal = this.grandTotal.toFixed(2);
       }
     } else {
-      console.log('not satisfied');
       this.coupon = null;
       localStorage.removeItem('coupon');
     }
   }
 
   placeOrder() {
-    console.log('place order');
     swal.fire({
       title: this.util.translate('Are you sure?'),
       text: this.util.translate('Orders once placed cannot be cancelled and are non-refundable'),
@@ -142,9 +123,7 @@ export class PaymentsPage implements OnInit {
       confirmButtonText: this.util.translate('Yes'),
       cancelButtonText: this.util.translate('Cancel'),
     }).then((data) => {
-      console.log(data);
       if (data && data.value) {
-        console.log('go to procesed');
         this.createOrder();
       }
     });
@@ -163,9 +142,7 @@ export class PaymentsPage implements OnInit {
       confirmButtonText: this.util.translate('Yes'),
       cancelButtonText: this.util.translate('cancel'),
     }).then((data) => {
-      console.log(data);
       if (data && data.value) {
-        console.log('go to procesed');
         this.payPal.init({
           PayPalEnvironmentProduction: environment.paypal.production,
           PayPalEnvironmentSandbox: environment.paypal.sandbox
@@ -174,7 +151,6 @@ export class PaymentsPage implements OnInit {
           })).then(() => {
             const payment = new PayPalPayment(this.grandTotal, 'USD', 'Food Delivery', 'sale');
             this.payPal.renderSinglePaymentUI(payment).then((res) => {
-              console.log(res);
               this.payKey = res.response.id;
               this.paypalOrder();
             }, (error: any) => {
@@ -203,7 +179,6 @@ export class PaymentsPage implements OnInit {
   }
 
   distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
-    console.log(lat1, lon1, lat2, lon2);
     const earthRadiusKm = 6371;
     const dLat = this.degreesToRadians(lat2 - lat1);
     const dLon = this.degreesToRadians(lon2 - lon1);
@@ -218,7 +193,6 @@ export class PaymentsPage implements OnInit {
   async createOrder() {
     this.util.show(this.util.translate('Creating order'));
     this.api.checkAuth().then(async (data: any) => {
-      console.log(data);
       if (data) {
         // not from saved address then create new and save
         if (!this.deliveryAddress.id || this.deliveryAddress.id === '') {
@@ -243,7 +217,6 @@ export class PaymentsPage implements OnInit {
         }
         const foods = await JSON.parse(localStorage.getItem('foods'));
         let recheck = await foods.filter(x => x.quantiy > 0);
-        console.log('ordered food', recheck);
         let id = this.util.makeid(10);
         await localStorage.removeItem('foods');
         await localStorage.removeItem('vid');
@@ -283,7 +256,6 @@ export class PaymentsPage implements OnInit {
           coupon: this.coupon ? JSON.stringify(this.coupon) : 'NA',
           dicount: this.coupon ? this.dicount : 0
         };
-        console.log('sent', param);
         this.api.createOrder(id, param).then(async (data) => {
           this.util.hide();
           if (this.venueFCM && this.venueFCM !== '') {
@@ -302,7 +274,6 @@ export class PaymentsPage implements OnInit {
           });
 
           this.navCtrl.navigateRoot(['tabs/tab2']);
-          console.log(data);
         }, error => {
           this.util.hide();
           this.util.errorToast(this.util.translate('Something went wrong'));
@@ -335,7 +306,6 @@ export class PaymentsPage implements OnInit {
   async paypalOrder() {
     this.util.show('creating order');
     this.api.checkAuth().then(async (data: any) => {
-      console.log(data);
       if (data) {
         // not from saved address then create new and save
         if (!this.deliveryAddress.id || this.deliveryAddress.id === '') {
@@ -360,7 +330,6 @@ export class PaymentsPage implements OnInit {
         }
         const foods = await JSON.parse(localStorage.getItem('foods'));
         let recheck = await foods.filter(x => x.quantiy > 0);
-        console.log('ordered food', recheck);
         let id = this.util.makeid(10);
         await localStorage.removeItem('foods');
         await localStorage.removeItem('vid');
@@ -397,7 +366,6 @@ export class PaymentsPage implements OnInit {
           coupon: this.coupon ? JSON.stringify(this.coupon) : 'NA',
           dicount: this.coupon ? this.dicount : 0
         };
-        console.log('sent', param);
         this.api.createOrder(id, param).then(async (data) => {
           this.util.hide();
           if (this.venueFCM && this.venueFCM !== '') {
@@ -415,7 +383,6 @@ export class PaymentsPage implements OnInit {
             backdrop: false,
           });
           this.navCtrl.navigateRoot(['tabs/tab2']);
-          console.log(data);
         }, error => {
           this.util.hide();
           this.util.errorToast(this.util.translate('Something went wrong'));

@@ -17,7 +17,6 @@ export class ChooseRestaurantPage implements OnInit {
 
   ngOnInit() {
     this.api.getVenues().then((data) => {
-      console.log('dataa', data);
       if (data) {
         this.restaurants = [];
         this.dummyRest = [];
@@ -50,7 +49,6 @@ export class ChooseRestaurantPage implements OnInit {
   }
 
   setFilteredItems() {
-    console.log('clear');
     this.restaurants = [];
     this.restaurants = this.dummyRest;
   }

@@ -31,7 +31,6 @@ export class ChooseAddressPage implements OnInit {
   ngOnInit() {
     this.isValidAddress = false;
     this.route.queryParams.subscribe(data => {
-      console.log(data);
       if (data && data.from) {
         this.from = data.from;
       }
@@ -40,7 +39,6 @@ export class ChooseAddressPage implements OnInit {
 
   getAddress() {
     this.api.getMyAddress(this.id).then((data) => {
-      console.log('my address', data);
       this.dummy = [];
       if (data && data.length) {
         this.myaddress = data;
@@ -57,7 +55,6 @@ export class ChooseAddressPage implements OnInit {
   getProfile() {
     this.util.show();
     this.api.getProfile(localStorage.getItem('uid')).then((data: any) => {
-      console.log(data);
       this.util.hide();
       if (!data || !data.phone) {
         this.util.errorToast(this.util.translate('All Fields are required'));
@@ -82,7 +79,6 @@ export class ChooseAddressPage implements OnInit {
   ionViewWillEnter() {
     this.isValidAddress = false;
     this.api.checkAuth().then((data: any) => {
-      console.log(data);
       if (data) {
         this.id = data.uid;
         this.getProfile();
@@ -101,7 +97,6 @@ export class ChooseAddressPage implements OnInit {
       const restaurantLng = localStorage.getItem('restaurantLng');
       const myAddress = this.myaddress.filter(x => x.id === addressId);
       const distance = this.util.distanceInKmBetweenEarthCoordinates(restaurantLat, restaurantLng, myAddress[0].lat, myAddress[0].lng);
-      console.log('distance', distance);
       // Distance
       if (distance < 10) {
         this.isValidAddress = true;
@@ -125,7 +120,6 @@ export class ChooseAddressPage implements OnInit {
     if (this.from === 'cart') {
       const selecte = this.myaddress.filter(x => x.id === this.selectedAddress);
       const item = selecte[0];
-      console.log('item', item);
       const address = {
         address: item.house + ' ' + item.landmark + ' ' + item.address,
         lat: item.lat,
@@ -147,7 +141,6 @@ export class ChooseAddressPage implements OnInit {
       mode: 'ios',
     });
     popover.onDidDismiss().then(data => {
-      console.log(data.data);
       if (data && data.data) {
         if (data.data === 'edit') {
           const navData: NavigationExtras = {
@@ -158,7 +151,6 @@ export class ChooseAddressPage implements OnInit {
           };
           this.router.navigate(['add-new-address'], navData);
         } else if (data.data === 'delete') {
-          console.log(item);
           Swal.fire({
             title: this.util.translate('Are you sure?'),
             text: this.util.translate('to delete this address'),
@@ -170,11 +162,9 @@ export class ChooseAddressPage implements OnInit {
             showConfirmButton: true,
             cancelButtonText: this.util.translate('Cancel')
           }).then(data => {
-            console.log(data);
             if (data && data.value) {
               this.util.show();
               this.api.deleteAddress(localStorage.getItem('uid'), item.id).then(data => {
-                console.log(data);
                 this.util.hide();
                 this.getAddress();
               }).catch(error => {

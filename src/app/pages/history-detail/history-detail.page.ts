@@ -49,7 +49,6 @@ export class HistoryDetailPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getOrder();
@@ -60,7 +59,6 @@ export class HistoryDetailPage implements OnInit {
   getOrder() {
     this.api.getOrderById(this.id).then((data) => {
       this.loaded = true;
-      console.log(data);
       if (data) {
         this.orderData = data;
         this.grandTotal = data.grandTotal;
@@ -74,7 +72,6 @@ export class HistoryDetailPage implements OnInit {
           this.dname = data.dId.fullname;
           this.driverFCM = data.dId.fcm_token;
           this.driverPhone = data.dId.phone;
-          console.log('driver FCM-------->', this.driverFCM);
           this.dId = data.dId.uid;
         }
         this.total = data.total;
@@ -83,7 +80,6 @@ export class HistoryDetailPage implements OnInit {
         this.restPhone = data.vid.phone;
         this.deliveryAddress = data.address.address;
         this.paid = data.paid;
-        console.log('this', this.orders);
         this.getRest(data.vid.uid);
         this.coupon = data.appliedCoupon;
         this.dicount = data.dicount;
@@ -117,7 +113,6 @@ export class HistoryDetailPage implements OnInit {
         }, {
           text: 'Yes',
           handler: () => {
-            console.log('Confirm Okay');
             this.util.setOrders(this.orderData);
             this.router.navigate(['rate']);
           }
@@ -130,9 +125,7 @@ export class HistoryDetailPage implements OnInit {
 
   getRest(id) {
     this.api.getProfile(id).then((data) => {
-      console.log(data);
       this.restFCM = data.fcm_token;
-      console.log('rest FCM------------->', this.restFCM);
       if (data && data.phone) {
         this.restPhone = data.phone;
       }
@@ -154,7 +147,6 @@ export class HistoryDetailPage implements OnInit {
     //
   }
   call(phone) {
-    console.log(phone);
     window.open('tel:' + phone);
   }
 
@@ -173,7 +165,6 @@ export class HistoryDetailPage implements OnInit {
       backdrop: false,
       background: 'white'
     }).then((data) => {
-      console.log(data);
       if (data && data.value) {
         this.util.show();
         this.api.updateOrderStatus(this.id, 'cancel').then((data) => {

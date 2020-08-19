@@ -47,7 +47,6 @@ export class TrackerPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getOrder();
@@ -56,14 +55,13 @@ export class TrackerPage implements OnInit {
 
   }
   callDriver() {
-    // window.open('tel:' + this.phone);
-    window.open('https://api.whatsapp.com/send?phone=91' + this.phone);
+    window.open('tel:' + this.phone);
+    // window.open('https://api.whatsapp.com/send?phone=91' + this.phone);
   }
   getOrder() {
     this.util.show();
     this.api.getOrderById(this.id).then((data) => {
       this.util.hide();
-      console.log(data);
       if (data) {
         this.dName = data.dId.fullname;
         this.dCover = data.dId.coverImage;
@@ -74,7 +72,6 @@ export class TrackerPage implements OnInit {
         this.grandTotal = data.grandTotal;
         this.totalOrders = JSON.parse(data.order);
         this.getDriverInfo();
-        console.log('my order', this.totalOrders);
         this.loadMap(parseFloat(data.address.lat), parseFloat(data.address.lng), parseFloat(data.vid.lat), parseFloat(data.vid.lng));
       }
 
@@ -91,7 +88,6 @@ export class TrackerPage implements OnInit {
   getDriverInfo() {
 
     this.adb.collection('orders').doc(this.id).snapshotChanges().subscribe((data: any) => {
-      console.log(data.payload.data());
       if (data) {
         this.status = data.payload.data().status;
         if (data.payload.data().status === 'delivered') {
@@ -109,7 +105,6 @@ export class TrackerPage implements OnInit {
     });
 
     this.adb.collection('users').doc(this.dId).snapshotChanges().subscribe((data: any) => {
-      console.log(data.payload.data());
       if (data) {
         this.driverLat = data.payload.data().lat;
         this.driverLng = data.payload.data().lng;
@@ -123,7 +118,6 @@ export class TrackerPage implements OnInit {
     var latlng = new google.maps.LatLng(this.driverLat, this.driverLng);
     map.setCenter(latlng);
     marker.setPosition(latlng);
-    console.log("Updating runner position");
   }
 
   loadMap(latOri, lngOri, latDest, lngDest) {
@@ -245,7 +239,6 @@ export class TrackerPage implements OnInit {
     }, 12000);
   }
   ionViewDidLeave() {
-    console.log('leaae');
     clearInterval(this.interval);
   }
 }

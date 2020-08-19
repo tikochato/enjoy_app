@@ -38,11 +38,9 @@ export class AddNewAddressPage implements OnInit {
     private route: ActivatedRoute
   ) {
     this.route.queryParams.subscribe(data => {
-      console.log(data);
       if (data && data.from) {
         this.from = 'edit';
         const info = JSON.parse(data.data);
-        console.log('da===>', info);
         this.address = info.address;
         this.house = info.house;
         this.id = info.id;
@@ -73,7 +71,6 @@ export class AddNewAddressPage implements OnInit {
       } else {
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
-            console.log('resp', resp);
             this.lat = resp.coords.latitude;
             this.lng = resp.coords.longitude;
             this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
@@ -89,7 +86,6 @@ export class AddNewAddressPage implements OnInit {
       if (data) {
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
-            console.log('resp', resp);
             this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
             this.getAddress(resp.coords.latitude, resp.coords.longitude);
           }
@@ -98,7 +94,6 @@ export class AddNewAddressPage implements OnInit {
         this.diagnostic.switchToLocationSettings();
         this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 10000, enableHighAccuracy: true }).then((resp) => {
           if (resp) {
-            console.log('ress,', resp);
             this.loadmap(resp.coords.latitude, resp.coords.longitude, this.mapEle);
             this.getAddress(resp.coords.latitude, resp.coords.longitude);
           }
@@ -149,7 +144,6 @@ export class AddNewAddressPage implements OnInit {
     const geocoder = new google.maps.Geocoder();
     const location = new google.maps.LatLng(lat, lng);
     geocoder.geocode({ 'location': location }, (results, status) => {
-      console.log(results);
       this.address = results[0].formatted_address;
       this.lat = lat;
       this.lng = lng;
@@ -157,7 +151,6 @@ export class AddNewAddressPage implements OnInit {
   }
 
   addMarker(location) {
-    console.log('location =>', location)
     const icon = {
       url: 'assets/icon/marker.png',
       scaledSize: new google.maps.Size(50, 50), // scaled size
@@ -171,7 +164,6 @@ export class AddNewAddressPage implements OnInit {
     })
 
     google.maps.event.addListener(this.marker, 'dragend', () => {
-      console.log(this.marker);
       this.getDragAddress(this.marker);
     });
 
@@ -182,7 +174,6 @@ export class AddNewAddressPage implements OnInit {
     const geocoder = new google.maps.Geocoder();
     const location = new google.maps.LatLng(event.position.lat(), event.position.lng());
     geocoder.geocode({ 'location': location }, (results, status) => {
-      console.log(results);
       this.address = results[0].formatted_address;
       this.lat = event.position.lat();
       this.lng = event.position.lng();
@@ -199,11 +190,8 @@ export class AddNewAddressPage implements OnInit {
       this.util.errorToast(this.util.translate('All Fields are required'));
       return false;
     }
-    console.log('call api');
     this.util.show();
     this.api.checkAuth().then((data: any) => {
-      console.log(data);
-
       if (data) {
         const id = this.util.makeid(10);
         const param = {

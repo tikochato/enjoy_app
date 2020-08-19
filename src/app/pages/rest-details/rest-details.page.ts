@@ -45,7 +45,6 @@ export class RestDetailsPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getVenueDetails();

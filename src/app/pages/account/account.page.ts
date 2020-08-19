@@ -21,7 +21,6 @@ export class AccountPage implements OnInit {
     private util: UtilService
   ) {
     this.util.getReviewObservable().subscribe(data => {
-      console.log(data);
       this.getReview();
     });
     this.util.observProfile().subscribe(data => {
@@ -53,7 +52,6 @@ export class AccountPage implements OnInit {
   }
   getReview() {
     this.api.getMyReviews(this.id).then((reviews) => {
-      console.log(reviews);
       this.reviews = reviews;
     }, error => {
       console.log(error);
@@ -63,7 +61,6 @@ export class AccountPage implements OnInit {
   }
   getProfile() {
     this.api.getMyProfile(localStorage.getItem('uid')).then((data: any) => {
-      console.log('userdata', data);
       if (data) {
         this.name = data.fullname;
         this.photo = data && data.cover ? data.cover : 'assets/imgs/user.jpg';

@@ -31,7 +31,6 @@ export class LoginPage implements OnInit {
     }
     this.translate.use(localStorage.getItem('language'));
     this.oneSignal.getIds().then((data) => {
-      console.log('iddddd==========', data);
       localStorage.setItem('fcm', data.userId);
     });
   }
@@ -41,7 +40,6 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(form: NgForm) {
-    console.log('form', form);
     this.submitted = true;
     if (form.valid) {
       const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
@@ -49,12 +47,9 @@ export class LoginPage implements OnInit {
         this.util.showToast(this.util.translate('Please enter valid email'), 'danger', 'bottom');
         return false;
       }
-      console.log('login');
       this.isLogin = true;
       this.api.login(this.login.email, this.login.password).then((userData) => {
-        console.log(userData);
         this.api.getProfile(userData.uid).then((info) => {
-          console.log(info);
           if (info && info.status === 'active') {
             localStorage.setItem('uid', userData.uid);
             localStorage.setItem('help', userData.uid);

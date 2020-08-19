@@ -53,7 +53,6 @@ export class AddCardPage implements OnInit {
     };
     this.util.show();
     this.api.httpPost('https://api.stripe.com/v1/tokens', param).subscribe((data: any) => {
-      console.log(data);
       if (data && data.id) {
         // this.token = data.id;
         const customer = {
@@ -62,7 +61,6 @@ export class AddCardPage implements OnInit {
           email: this.email
         };
         this.api.httpPost('https://api.stripe.com/v1/customers', customer).subscribe((customer: any) => {
-          console.log(customer);
           this.util.hide();
           if (customer && customer.id) {
             // this.cid = customer.id;
@@ -87,7 +85,6 @@ export class AddCardPage implements OnInit {
     }, (error: any) => {
       console.log(error);
       this.util.hide();
-      console.log();
       if (error && error.error && error.error.error && error.error.error.message) {
         this.util.showErrorAlert(error.error.error.message);
         return false;

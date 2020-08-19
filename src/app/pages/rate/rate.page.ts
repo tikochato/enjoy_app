@@ -25,14 +25,12 @@ export class RatePage implements OnInit {
     private navCtrl: NavController
   ) {
     const data = this.util.gerOrder();
-    console.log(data);
     if (data) {
       this.items = JSON.parse(data.order);
       this.items = uniqBy(this.items, 'id');
       this.dId = data.dId.id;
       this.name = data.dId.fullname;
       this.image = data.dId.coverImage;
-      console.log(this.items);
       this.items.forEach(element => {
         element.rate = 0;
         element.totalRating = element.totalRating ? element.totalRating : 1;
@@ -41,12 +39,9 @@ export class RatePage implements OnInit {
   }
 
   submit() {
-    console.log(this.items);
     this.items.forEach(async (element) => {
-      console.log('elementt', element)
       let totalRating = 0;
       totalRating = (element.rate * element.totalRating) / 100;
-      console.log('???', totalRating);
       totalRating = totalRating * 100;
       if (!totalRating) {
         totalRating = element.rate;
@@ -57,9 +52,7 @@ export class RatePage implements OnInit {
       });
     });
     const id = Math.random().toString();
-    console.log('iddddd', id);
     const uid = localStorage.getItem('uid');
-    console.log('----->', localStorage.getItem('uid'));
     const parm = {
       id: id,
       descriptions: this.driverNotes,
@@ -68,9 +61,8 @@ export class RatePage implements OnInit {
       user: uid,
       uid: uid
     };
-    console.log('parma ====>', parm);
     this.api.addDriverReview(parm).then((data) => {
-      console.log('??????', data);
+      console.log(data);
     }).catch(error => {
       console.log(error);
     });

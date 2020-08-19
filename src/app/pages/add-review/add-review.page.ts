@@ -38,7 +38,6 @@ export class AddReviewPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(data => {
-      console.log('data=>', data);
       if (data.hasOwnProperty('id')) {
         this.id = data.id;
         this.getDetails();
@@ -47,7 +46,6 @@ export class AddReviewPage implements OnInit {
   }
   getDetails() {
     this.api.getVenueDetails(this.id).then((data) => {
-      console.log(data);
       if (data) {
         this.rating = data.rating;
         this.totalRating = data.totalRating;
@@ -68,11 +66,9 @@ export class AddReviewPage implements OnInit {
   addReview() {
     const myRate = (this.rating * this.rate);
     let totalRating = Math.round((this.totalRating * 5) / myRate);
-    console.log('total', totalRating);
     if (!totalRating) {
       totalRating = this.rate;
     }
-    console.log(totalRating);
     const review = {
       id: localStorage.getItem('uid'),
       descriptions: this.descriptions,
@@ -83,16 +79,13 @@ export class AddReviewPage implements OnInit {
       uid: localStorage.getItem('uid')
     };
     this.util.show();
-    console.log('review', review);
     this.api.addReview(review).then((data) => {
       const restParam = {
         rating: this.rating + 1,
         totalRating: totalRating,
         uid: this.id
       };
-      console.log('restParam', restParam);
       this.api.updateVenue(restParam).then((newUpdate) => {
-        console.log(newUpdate);
         this.util.hide();
         this.util.showToast(this.util.translate('Review added succesfully'), 'success', 'bottom');
         this.util.publishReview('hello');
@@ -120,14 +113,12 @@ export class AddReviewPage implements OnInit {
         text: this.util.translate('Gallery'),
         icon: 'images',
         handler: () => {
-          console.log('Images clicked');
           this.opemCamera('gallery');
         }
       }, {
         text: this.util.translate('Camera'),
         icon: 'camera',
         handler: () => {
-          console.log('camera clicked');
           this.opemCamera('camera');
         }
       }, {
@@ -151,7 +142,6 @@ export class AddReviewPage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: type === 'camera' ? 1 : 0
     };
-    console.log('open');
     this.camera.getPicture(options).then((imageData) => {
       const base64Image = 'data:image/jpeg;base64,' + imageData;
       this.image = base64Image;
@@ -161,7 +151,6 @@ export class AddReviewPage implements OnInit {
         .putString(base64Image, 'data_url').then((snapshot) => {
           this.util.hide();
           snapshot.ref.getDownloadURL().then((url) => {
-            console.log('url uploaded', url);
             this.coverImage = url;
           });
         }, error => {

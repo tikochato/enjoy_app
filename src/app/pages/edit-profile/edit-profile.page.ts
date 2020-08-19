@@ -40,7 +40,6 @@ export class EditProfilePage implements OnInit {
   getProfile() {
     this.util.show();
     this.api.getProfile(localStorage.getItem('uid')).then((data: any) => {
-      console.log(data);
       this.util.hide();
       if (data) {
         this.profilePic = data.cover;
@@ -60,7 +59,6 @@ export class EditProfilePage implements OnInit {
   ngOnInit() {
     this.getProfile();
     this.route.queryParams.subscribe(data => {
-      console.log(data);
       if (data && data.from) {
         this.from = data.from;
       }
@@ -88,10 +86,8 @@ export class EditProfilePage implements OnInit {
     };
     
     const user = this.profilePic ? userWithPic : userBasic;
-    console.log('ara', user);
     this.util.show();
     this.api.updateProfile(localStorage.getItem('uid'), user).then((data: any) => {
-      console.log(data);
       this.util.hide();
       this.util.showToast(this.util.translate('Profile updated'), 'success', 'bottom');
       this.util.publishProfile('update');
@@ -117,14 +113,12 @@ export class EditProfilePage implements OnInit {
         text: 'Camera',
         icon: 'camera',
         handler: () => {
-          console.log('Delete clicked');
           this.openCamera('camera');
         }
       }, {
         text: 'Gallery',
         icon: 'image',
         handler: () => {
-          console.log('Share clicked');
           this.openCamera('gallery');
         }
       }, {
@@ -149,7 +143,6 @@ export class EditProfilePage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: type === 'camera' ? 1 : 0
     };
-    console.log('open');
     this.camera.getPicture(options).then((imageData) => {
       const base64Image = 'data:image/jpeg;base64,' + imageData;
 
@@ -159,7 +152,6 @@ export class EditProfilePage implements OnInit {
         .putString(base64Image, 'data_url').then((snapshot) => {
           this.util.hide();
           snapshot.ref.getDownloadURL().then((url) => {
-            console.log('url uploaded', url);
             this.profilePic = url;
           });
         }, error => {
